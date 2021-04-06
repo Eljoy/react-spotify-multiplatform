@@ -1,10 +1,19 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "startCore": "cd ./packages/spotify-core && yarn watch",
+    "startAndroid": "cd ./packages/spotify-native && yarn android",
+    "startIos": "cd ./packages/spotify-native && yarn ios",
+    "startWeb": "cd ./packages/spotify-web && yarn start"
+  },
   "devDependencies": {
     "husky": "^4.3.7",
     "lerna": "^4.0.0",
     "prettier": "^2.2.1",
     "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10"
   }
 }
