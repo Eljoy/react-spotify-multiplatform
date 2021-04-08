@@ -26,11 +26,10 @@
    LearnMoreLinks,
    ReloadInstructions,
  } from 'react-native/Libraries/NewAppScreen';
-import {User} from "../spotify-core";
+import {User} from "spotify-core";
+console.log(User)
 
-console.log('User ', User)
-
-const Section: React.FC<{
+ const Section: React.FC<{
    title: string;
  }> = ({children, title}) => {
    const isDarkMode = useColorScheme() === 'dark';

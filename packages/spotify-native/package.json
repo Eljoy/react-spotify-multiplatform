@@ -10,26 +10,52 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "react": "17.0.1",
+    "spotify-core": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-native": "0.64.0",
-    "spotify-core": "*"
+    "react-redux": "^7.2.2",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/netinfo": "^6.0.0",
+    "@react-navigation/native": "^5.7.3",
+    "@react-navigation/stack": "^5.9.0",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.0.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^2.18.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/runtime": "^7.12.5",
-    "@react-native-community/eslint-config": "^2.0.0",
-    "@types/jest": "^26.0.20",
-    "@types/react-native": "^0.64.0",
-    "@types/react-test-renderer": "^16.9.2",
-    "babel-jest": "^26.6.3",
-    "eslint": "^7.14.0",
-    "jest": "^26.6.3",
-    "metro-react-native-babel-preset": "^0.64.0",
-    "react-test-renderer": "17.0.1",
-    "typescript": "^3.8.3"
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@react-native-community/cli-platform-android": "5.0.1-alpha.1",
+    "@babel/runtime": "^7.12.13",
+    "@types/react-native": "^0.63.2",
+    "babel-jest": "^26.6.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "get-yarn-workspaces": "^1.0.2",
+    "jest": "^25.1.0",
+    "metro-config": "^0.56.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1"
   },
   "resolutions": {
     "@types/react": "^17"
+  },
+  "workspaces": {
+    "nohoist": [
+      "react-native",
+      "react-native/*",
+      "react-native**",
+      "@react-native-community/**",
+      "@react-native-community",
+      "@react-navigation/**",
+      "redux",
+      "react",
+      "react-redux",
+      "babel-jest"
+    ]
   },
   "jest": {
     "preset": "react-native",

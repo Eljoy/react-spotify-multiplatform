@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {User} from "spotify-core";
+console.log(User)
 function App() {
   return (
     <div className="App">

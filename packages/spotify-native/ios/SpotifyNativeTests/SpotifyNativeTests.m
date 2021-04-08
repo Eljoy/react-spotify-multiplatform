@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface spotifyNativeTests : XCTestCase
+@interface SpotifyNativeTests : XCTestCase
 
 @end
 
-@implementation spotifyNativeTests
+@implementation SpotifyNativeTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

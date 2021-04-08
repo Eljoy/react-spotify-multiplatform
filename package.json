@@ -1,19 +1,19 @@
 {
   "name": "root",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "startCore": "cd ./packages/spotify-core && yarn watch",
     "startAndroid": "cd ./packages/spotify-native && yarn android",
     "startIos": "cd ./packages/spotify-native && yarn ios",
-    "startWeb": "cd ./packages/spotify-web && yarn start"
+    "startWeb": "cd ./packages/spotify-web && yarn start",
+    "clearNodeModules": "find ./ -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn"
   },
   "devDependencies": {
     "husky": "^4.3.7",
-    "lerna": "^4.0.0",
     "prettier": "^2.2.1",
     "typescript": "^4.0.5"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.13.10"
   }
 }
