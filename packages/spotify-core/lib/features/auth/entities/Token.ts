@@ -1,30 +1,25 @@
-import { JsonProperty, Serializable, deserialize, serialize } from 'typescript-json-serializer'
+import { JsonProperty, Serializable, deserialize, serialize } from "typescript-json-serializer";
 
 @Serializable()
 export default class Token {
-  @JsonProperty('access_token')
-  public readonly accessToken: string
+  @JsonProperty({ name: "access_token", required: true })
+  public readonly accessToken: string;
 
-  @JsonProperty('token_type')
-  public readonly tokenType: string
+  @JsonProperty({ name: "token_type", required: true })
+  public readonly tokenType: string;
 
-  @JsonProperty('expires_in')
-  public readonly expiresIn: number
+  @JsonProperty({ name: "expires_in", required: true })
+  public readonly expiresIn: number;
 
   static deserialize(tokenDAO: Record<string, unknown>): Token {
-    const token = deserialize(tokenDAO, Token)
-    if (!token.accessToken || !token.tokenType || !token.expiresIn) {
-      // TODO: make a proper check
-      throw Error('Empty fields!')
-    }
-    return token
+    return deserialize(tokenDAO, Token);
   }
 
   serialize(): Record<string, unknown> {
-    return serialize(this)
+    return serialize(this);
   }
 
   toString(): string {
-    return JSON.stringify(this)
+    return JSON.stringify(this);
   }
 }
