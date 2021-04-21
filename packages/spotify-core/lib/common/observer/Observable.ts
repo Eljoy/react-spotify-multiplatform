@@ -3,7 +3,7 @@ export type Observer<T> = (value: T) => void
 export default class Observable<T> {
   protected subscribers: Set<Observer<T>> = new Set()
 
-  public subscribe(observer: Observer<T>): void {
+  subscribe(observer: Observer<T>): void {
     this.subscribers.add(observer)
   }
 
