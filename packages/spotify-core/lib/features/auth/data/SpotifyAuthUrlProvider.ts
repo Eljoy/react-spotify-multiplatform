@@ -1,5 +1,5 @@
 import urlParse from 'url-parse'
-import { required } from '../../../helpers'
+import { required } from '../../../common'
 
 export enum Scopes {
   ugcImageUpload = 'ugc-image-upload',

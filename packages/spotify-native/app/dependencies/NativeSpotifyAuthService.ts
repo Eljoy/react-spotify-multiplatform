@@ -10,7 +10,7 @@ const spotifyAuthUrlProvider = Auth.SpotifyAuthUrlProvider
   .setRedirectUri("reactspotifymultiplatform://page.link");
 
 @injectable()
-export default class NativeSpotifyOauthService extends Observable<Auth.Token> implements Auth.OauthService {
+export default class NativeSpotifyAuthService extends Auth.SpotifyAuthService {
   constructor() {
     super();
     Linking.addEventListener("url", this.handleAuthRedirect.bind(this));

@@ -9,7 +9,10 @@ const spotifyAuthProvider = Auth.SpotifyAuthUrlProvider
   .setRedirectUri("http://localhost:3000/callback");
 
 @injectable()
-export default class WebSpotifyOauthService extends Observable<Auth.Token> implements Auth.OauthService {
+export default class WebSpotifyAuthService extends Auth.SpotifyAuthService {
+  constructor() {
+    super();
+  }
   async promptSignInFlow(): Promise<void> {
     window.location.href = spotifyAuthProvider.getAuthUrl();
   }

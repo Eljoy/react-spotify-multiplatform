@@ -4,7 +4,7 @@ import { signIn } from '../data'
 import { buffers, eventChannel } from 'redux-saga'
 import { Token } from '../entities'
 import { AuthRepository } from '../domain'
-import { byLazy } from '../../../helpers'
+import { byLazy } from '../../../common'
 import { spotifyAppContainer } from '../../../inversify.config'
 
 const authRepository = byLazy(() => spotifyAppContainer.get<AuthRepository>(AppDependencies.SPOTIFY_AUTH_REPOSITORY))

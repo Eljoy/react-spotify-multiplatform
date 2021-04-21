@@ -1,2 +1,2 @@
 export * from './AuthRepository'
-export * from './OauthService'
+export * from './AuthService'

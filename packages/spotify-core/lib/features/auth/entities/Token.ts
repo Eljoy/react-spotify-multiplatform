@@ -12,7 +12,6 @@ export default class Token {
   public readonly expiresIn: number
 
   static deserialize(tokenDAO: Record<string, unknown>): Token {
-    console.log(tokenDAO)
     const token = deserialize(tokenDAO, Token)
     if (!token.accessToken || !token.tokenType || !token.expiresIn) {
       // TODO: make a proper check
@@ -24,5 +23,8 @@ export default class Token {
   serialize(): Record<string, unknown> {
     return serialize(this)
   }
-}
 
+  toString(): string {
+    return JSON.stringify(this)
+  }
+}
