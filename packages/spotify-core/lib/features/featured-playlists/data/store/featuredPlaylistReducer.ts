@@ -9,7 +9,7 @@ const initialState = {
   playlists: []
 };
 
-const playlists: Reducer<Playlist, RootStateOrAny> = createReducer(initialState.playlists)
+const playlists: Reducer<Playlist[], RootStateOrAny> = createReducer(initialState.playlists)
   .handleAction(fetchFeaturedPlaylists.success, (_, action) => action.payload);
 
 export default combineReducers({

@@ -1,8 +1,9 @@
-import { inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { AppDependencies } from "../../../../dependencies";
 import { ApiClient, ApiClientBuilder } from "../../../../api";
 import { Playlist } from "../../../../entities";
 
+@injectable()
 export default class FeaturedPlaylistApi {
   private apiClient: ApiClient;
 
@@ -15,7 +16,7 @@ export default class FeaturedPlaylistApi {
 
   async fetchFeaturedPlaylists() {
     const { data } = await this.apiClient.get("https://api.spotify.com/v1/browse/featured-playlists");
-    return data.items.map(featuredPlaylistDao => Playlist.deserialize(featuredPlaylistDao));
+    return data.playlists.items.map(featuredPlaylistDao => Playlist.deserialize(featuredPlaylistDao));
   }
 }
 
