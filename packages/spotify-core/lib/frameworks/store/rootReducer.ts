@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import { Auth } from '../../features'
+import { Auth, UserFeature, FeaturedPlaylistsFeature } from '../../features'
 
 export default combineReducers({
-  auth: Auth.authReducer
+  auth: Auth.authReducer,
+  user: UserFeature.userReducer,
+  featuredPlaylists: FeaturedPlaylistsFeature.featuredPlaylistReducer
 });

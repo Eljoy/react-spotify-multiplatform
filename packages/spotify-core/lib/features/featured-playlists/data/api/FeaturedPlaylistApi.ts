@@ -1,0 +1,21 @@
+import { inject } from "inversify";
+import { AppDependencies } from "../../../../dependencies";
+import { ApiClient, ApiClientBuilder } from "../../../../api";
+import { Playlist } from "../../../../entities";
+
+export default class FeaturedPlaylistApi {
+  private apiClient: ApiClient;
+
+  constructor(@inject(AppDependencies.API_CLIENT_BUILDER) apiClientBuilder: ApiClientBuilder) {
+    this.apiClient = apiClientBuilder
+      .withRetryRequest()
+      .withAuthHeader()
+      .build();
+  }
+
+  async fetchFeaturedPlaylists() {
+    const { data } = await this.apiClient.get("https://api.spotify.com/v1/browse/featured-playlists");
+    return data.items.map(featuredPlaylistDao => Playlist.deserialize(featuredPlaylistDao));
+  }
+}
+
