@@ -7,4 +7,6 @@ export interface AuthRepository extends Observable<Token> {
   getAuthToken(): Promise<Token>
 
   isSignedIn(): Promise<boolean>
+
+  signOut(): Promise<void>
 }
