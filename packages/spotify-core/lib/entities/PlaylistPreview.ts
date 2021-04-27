@@ -1,9 +1,8 @@
 import Entity from "./Entity";
 import { JsonProperty, deserialize } from "typescript-json-serializer";
 import Image from "./Image";
-import Track from "./Track";
 
-export default class Playlist extends Entity {
+export default class PlaylistPreview extends Entity {
   @JsonProperty({ required: true })
   readonly id: string;
 
@@ -16,12 +15,16 @@ export default class Playlist extends Entity {
   @JsonProperty()
   readonly images: Image[];
 
+  @JsonProperty()
+  readonly href: string;
+
   @JsonProperty({ required: true })
   readonly tracks: {
-    items: Track[]
+    href: string,
+    total: number
   };
 
-  static deserialize(playlistDao: Record<string, unknown>): Playlist {
-    return deserialize(playlistDao, Playlist);
+  static deserialize(playlistDao: Record<string, unknown>): PlaylistPreview {
+    return deserialize(playlistDao, PlaylistPreview);
   }
 }

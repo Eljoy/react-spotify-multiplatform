@@ -1,5 +1,5 @@
 import { Container } from 'inversify'
-import { Auth, UserFeature, FeaturedPlaylistsFeature } from './features'
+import { Auth, UserFeature, FeaturedPlaylistsFeature, PlaylistFeature } from './features'
 import { AppDependencies } from './dependencies'
 import getDecorators from "inversify-inject-decorators";
 import { ApiClientBuilder } from "./api";
@@ -21,8 +21,8 @@ spotifyAppContainer
   .inSingletonScope()
 
 spotifyAppContainer
-  .bind<FeaturedPlaylistsFeature.FeaturedPlaylistApi>(AppDependencies.FEATURED_PLAYLIST_API)
-  .to(FeaturedPlaylistsFeature.FeaturedPlaylistApi)
+  .bind<FeaturedPlaylistsFeature.FeaturedPlaylistsApi>(AppDependencies.FEATURED_PLAYLIST_API)
+  .to(FeaturedPlaylistsFeature.FeaturedPlaylistsApi)
   .inSingletonScope()
 
 spotifyAppContainer
@@ -38,6 +38,16 @@ spotifyAppContainer
 spotifyAppContainer
   .bind<UserFeature.CurrentUserRepository>(AppDependencies.CURRENT_USER_REPOSITORY)
   .to(UserFeature.CurrentUserRepository)
+  .inSingletonScope()
+
+spotifyAppContainer
+  .bind<PlaylistFeature.PlaylistApi>(AppDependencies.PLAYLIST_API)
+  .to(PlaylistFeature.PlaylistApi)
+  .inSingletonScope()
+
+spotifyAppContainer
+  .bind<PlaylistFeature.PlaylistRepository>(AppDependencies.PLAYLIST_REPOSITORY)
+  .to(PlaylistFeature.PlaylistRepository)
   .inSingletonScope()
 
 const spotifyAppDecorators = getDecorators(spotifyAppContainer, false);

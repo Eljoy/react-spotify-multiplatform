@@ -1,44 +1,230 @@
-import Playlist from "./Playlist";
-import Image from "./Image";
-
-const testPlaylistDao = {
-  "name": "Upp och hoppa!",
+const testJson = {
   "collaborative": false,
-  "description": "Du kommer studsa ur sängen med den här spellistan.",
+  "description": "Having friends over for dinner? Here´s the perfect playlist.",
   "external_urls": {
-    "spotify": "http://open.spotify.com/user/spotify__sverige/playlist/4uOEx4OUrkoGNZoIlWMUbO"
+    "spotify": "http://open.spotify.com/user/spotify/playlist/59ZbFPES4DQwEjBpWHzrtC"
   },
-  "href": "https://api.spotify.com/v1/users/spotify__sverige/playlists/4uOEx4OUrkoGNZoIlWMUbO",
-  "id": "4uOEx4OUrkoGNZoIlWMUbO",
+  "followers": {
+    "href": null,
+    "total": 143350
+  },
+  "href": "https://api.spotify.com/v1/users/spotify/playlists/59ZbFPES4DQwEjBpWHzrtC",
+  "id": "59ZbFPES4DQwEjBpWHzrtC",
+  "images": [
+    {
+      "url": "https://i.scdn.co/image/68b6a65573a55095e9c0c0c33a274b18e0422736"
+    }
+  ],
+  "name": "Dinner with Friends",
+  "owner": {
+    "external_urls": {
+      "spotify": "http://open.spotify.com/user/spotify"
+    },
+    "href": "https://api.spotify.com/v1/users/spotify",
+    "id": "spotify",
+    "type": "user",
+    "uri": "spotify:user:spotify"
+  },
+  "public": null,
+  "snapshot_id": "bNLWdmhh+HDsbHzhckXeDC0uyKyg4FjPI/KEsKjAE526usnz2LxwgyBoMShVL+z+",
   "tracks": {
-    "href": "https://api.spotify.com/v1/users/spotify__sverige/playlists/4uOEx4OUrkoGNZoIlWMUbO/tracks",
-    "total": 38
-  },
-  "images": [{
-    "height": 300,
-    "url": "https://i.scdn.co/image/24aa1d1b491dd529b9c03392f350740ed73438d8",
-    "width": 300
-  }]
-};
-
-describe("Playlist Entity", () => {
-  it("should throw Error if provided data for serialization if incorrect", () => {
-    expect(() => Playlist.deserialize({})).toThrow();
-  });
-
-  it("should correctly deserialize object", () => {
-    const playlist = Playlist.deserialize(testPlaylistDao);
-    expect(playlist).toMatchObject({
-      id: testPlaylistDao.id,
-      name: testPlaylistDao.name,
-      description: testPlaylistDao.description,
-      images: [Image.deserialize(testPlaylistDao.images[0])],
-      href: testPlaylistDao.href,
-      tracks: {
-        href: testPlaylistDao.tracks.href,
-        total: testPlaylistDao.tracks.total
+    "href": "https://api.spotify.com/v1/users/spotify/playlists/59ZbFPES4DQwEjBpWHzrtC/tracks",
+    "items": [
+      {
+        "added_at": "2014-09-01T04:21:28Z",
+        "added_by": {
+          "external_urls": {
+            "spotify": "http://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "is_local": false,
+        "track": {
+          "album": {
+            "album_type": "single",
+            "available_markets": [
+              "AD",
+              "AR",
+              "AT",
+              "AU",
+              "BE",
+              "BG",
+              "BO",
+              "BR",
+              "CH",
+              "CL",
+              "CO",
+              "CR",
+              "CY",
+              "CZ",
+              "DK",
+              "DO",
+              "EC",
+              "EE",
+              "ES",
+              "FI",
+              "FR",
+              "GB",
+              "GR",
+              "GT",
+              "HK",
+              "HN",
+              "HU",
+              "IE",
+              "IS",
+              "IT",
+              "LI",
+              "LT",
+              "LU",
+              "LV",
+              "MC",
+              "MT",
+              "MY",
+              "NI",
+              "NL",
+              "NO",
+              "NZ",
+              "PA",
+              "PE",
+              "PH",
+              "PL",
+              "PT",
+              "PY",
+              "RO",
+              "SE",
+              "SG",
+              "SI",
+              "SK",
+              "SV",
+              "TR",
+              "TW",
+              "UY"
+            ],
+            "external_urls": {
+              "spotify": "https://open.spotify.com/album/5GWoXPsTQylMuaZ84PC563"
+            },
+            "href": "https://api.spotify.com/v1/albums/5GWoXPsTQylMuaZ84PC563",
+            "id": "5GWoXPsTQylMuaZ84PC563",
+            "images": [
+              {
+                "height": 640,
+                "url": "https://i.scdn.co/image/47421900e7534789603de84c03a40a826c058e45",
+                "width": 640
+              },
+              {
+                "height": 300,
+                "url": "https://i.scdn.co/image/0d447b6faae870f890dc5780cc58d9afdbc36a1d",
+                "width": 300
+              },
+              {
+                "height": 64,
+                "url": "https://i.scdn.co/image/d926b3e5f435ef3ac0874b1ff1571cf675b3ef3b",
+                "width": 64
+              }
+            ],
+            "name": "I''m Not The Only One",
+            "type": "album",
+            "uri": "spotify:album:5GWoXPsTQylMuaZ84PC563"
+          },
+          "artists": [
+            {
+              "external_urls": {
+                "spotify": "https://open.spotify.com/artist/2wY79sveU1sp5g7SokKOiI"
+              },
+              "href": "https://api.spotify.com/v1/artists/2wY79sveU1sp5g7SokKOiI",
+              "id": "2wY79sveU1sp5g7SokKOiI",
+              "name": "Sam Smith",
+              "type": "artist",
+              "uri": "spotify:artist:2wY79sveU1sp5g7SokKOiI"
+            }
+          ],
+          "available_markets": [
+            "AD",
+            "AR",
+            "AT",
+            "AU",
+            "BE",
+            "BG",
+            "BO",
+            "BR",
+            "CH",
+            "CL",
+            "CO",
+            "CR",
+            "CY",
+            "CZ",
+            "DK",
+            "DO",
+            "EC",
+            "EE",
+            "ES",
+            "FI",
+            "FR",
+            "GB",
+            "GR",
+            "GT",
+            "HK",
+            "HN",
+            "HU",
+            "IE",
+            "IS",
+            "IT",
+            "LI",
+            "LT",
+            "LU",
+            "LV",
+            "MC",
+            "MT",
+            "MY",
+            "NI",
+            "NL",
+            "NO",
+            "NZ",
+            "PA",
+            "PE",
+            "PH",
+            "PL",
+            "PT",
+            "PY",
+            "RO",
+            "SE",
+            "SG",
+            "SI",
+            "SK",
+            "SV",
+            "TR",
+            "TW",
+            "UY"
+          ],
+          "disc_number": 1,
+          "duration_ms": 204732,
+          "explicit": false,
+          "external_ids": {
+            "isrc": "GBUM71403920"
+          },
+          "external_urls": {
+            "spotify": "https://open.spotify.com/track/4i9sYtSIlR80bxje5B3rUb"
+          },
+          "href": "https://api.spotify.com/v1/tracks/4i9sYtSIlR80bxje5B3rUb",
+          "id": "4i9sYtSIlR80bxje5B3rUb",
+          "name": "I''m Not The Only One - Radio Edit",
+          "popularity": 45,
+          "preview_url": "https://p.scdn.co/mp3-preview/dd64cca26c69e93ea78f1fff2cc4889396bb6d2f",
+          "track_number": 1,
+          "type": "track",
+          "uri": "spotify:track:4i9sYtSIlR80bxje5B3rUb"
+        }
       }
-    });
-  });
-
-});
+    ],
+    "limit": 100,
+    "next": "https://api.spotify.com/v1/users/spotify/playlists/59ZbFPES4DQwEjBpWHzrtC/tracks?offset=100&limit=100",
+    "offset": 0,
+    "previous": null,
+    "total": 105
+  },
+  "type": "playlist",
+  "uri": "spotify:user:spotify:playlist:59ZbFPES4DQwEjBpWHzrtC"
+}
