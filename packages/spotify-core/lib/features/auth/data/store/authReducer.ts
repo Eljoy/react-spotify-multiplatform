@@ -1,30 +1,21 @@
-import { createReducer, getType} from 'typesafe-actions'
-import {setUser, signIn, signOut} from './authActions'
-import {User} from '../../../../entities'
+import { createReducer, getType } from "typesafe-actions";
+import { signIn, signOut } from "./authActions";
 
 type StateType = {
-    isSignedIn?: boolean
-    user?: User
+  isSignedIn?: boolean
 }
 
 const initialState = {
-    isSignedIn: null,
-    user: null,
-}
+  isSignedIn: null
+};
 
 export default createReducer<StateType>(initialState, {
-  [getType(signIn.success)]: (state, action: ReturnType<typeof signIn.success>) => ({
+  [getType(signIn.success)]: (state) => ({
     ...state,
-    isSignedIn: true,
+    isSignedIn: true
   }),
   [getType(signOut.success)]: (state) => ({
     ...state,
-    user: null,
-    isSignedIn: false,
-  }),
-  [getType(setUser)]: (state, action: ReturnType<typeof setUser>) => ({
-    ...state,
-    user: action.payload,
-    isSignedIn: !!action.payload,
-  }),
-})
+    isSignedIn: false
+  })
+});

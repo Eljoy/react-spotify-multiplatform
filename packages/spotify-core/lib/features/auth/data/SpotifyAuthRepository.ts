@@ -6,7 +6,8 @@ import { AppDependencies } from "../../../dependencies";
 
 @injectable()
 export class SpotifyAuthRepository extends Observable<Token> implements AuthRepository {
-  token?: Token;
+  @observableValue()
+  private token?: Token;
 
   @inject(AppDependencies.CACHE_SERVICE)
   private cacheService: CacheService;
@@ -14,7 +15,11 @@ export class SpotifyAuthRepository extends Observable<Token> implements AuthRepo
   constructor(@inject(AppDependencies.SPOTIFY_AUTH_SERVICE)
               private authService: AuthService) {
     super();
-    authService.subscribe(this.setToken.bind(this))
+    authService.subscribe(this.setToken.bind(this));
+  }
+
+  async signOut(): Promise<void> {
+    await this.setToken(null)
   }
 
   promptOauthSignInFlow = async () => {
@@ -22,8 +27,8 @@ export class SpotifyAuthRepository extends Observable<Token> implements AuthRepo
   };
 
   async isSignedIn(): Promise<boolean> {
-    const token = await this.getAuthToken()
-    return token !== null;
+    const token = await this.getAuthToken();
+    return Boolean(token);
   }
 
   getAuthToken = async (): Promise<Token | null> => {
@@ -45,11 +50,11 @@ export class SpotifyAuthRepository extends Observable<Token> implements AuthRepo
   };
 
   private async getTokenFromRedirectResult(): Promise<Token | null> {
-    const token = await this.authService.getRedirectResult();
-    if (token !== null) {
-      await this.setToken(token)
+    this.token = await this.authService.getRedirectResult();
+    if (this.token) {
+      await this.setToken(this.token);
     }
-    return token;
+    return this.token;
   }
 
   private async getTokenFromCache(): Promise<Token | null> {
@@ -59,8 +64,12 @@ export class SpotifyAuthRepository extends Observable<Token> implements AuthRepo
 
   private async setToken(token: Token) {
     this.token = token;
-    this.notify(token)
-    await this.cacheService.putToken(token);
+    this.notify(token);
+    if (token) {
+      await this.cacheService.putToken(token);
+    } else {
+      await this.cacheService.removeToken();
+    }
   }
 }
 

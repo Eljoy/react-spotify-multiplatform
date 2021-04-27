@@ -8,7 +8,7 @@ export default abstract class SpotifyAuthService extends Observable<Token> imple
   abstract promptSignInFlow(): Promise<void>;
 
   validateToken(token:Token): boolean {
-    return Boolean(token);
+    return true;
   }
 
   refreshToken(): Promise<Token> {
