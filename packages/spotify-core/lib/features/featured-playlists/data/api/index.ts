@@ -1,1 +1,1 @@
-export { default as FeaturedPlaylistApi } from "./FeaturedPlaylistApi";
+export { default as FeaturedPlaylistsApi } from "./FeaturedPlaylistsApi";

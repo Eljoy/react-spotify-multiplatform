@@ -1,1 +1,1 @@
-export { default as featuredPlaylistsSaga } from "./featuredPlaylistSaga";
+export { default as featuredPlaylistsSaga } from "./featuredPlaylistsSaga";
