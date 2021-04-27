@@ -6,11 +6,12 @@ enum Keys {
 
 export abstract class CacheService {
   async getToken(): Promise<Auth.Token | null> {
-    return this.get(Keys.Token);
+    const tokenDAO: Record<string, unknown> = await this.get(Keys.Token);
+    return tokenDAO? Auth.Token.deserialize(tokenDAO): null
   }
 
   async putToken(token: Auth.Token): Promise<void> {
-    return this.put(Keys.Token, JSON.stringify(token));
+    return this.put(Keys.Token, token.toString());
   }
 
   async removeToken(): Promise<void> {
