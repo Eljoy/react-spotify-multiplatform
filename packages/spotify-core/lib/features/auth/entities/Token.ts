@@ -1,7 +1,6 @@
-import { JsonProperty, Serializable } from "typescript-json-serializer";
+import { JsonProperty, deserialize } from "typescript-json-serializer";
 import { Entity } from "../../../entities";
 
-@Serializable()
 export default class Token extends Entity {
   @JsonProperty({ name: "access_token", required: true })
   public readonly accessToken: string;
@@ -11,4 +10,8 @@ export default class Token extends Entity {
 
   @JsonProperty({ name: "expires_in", required: true })
   public readonly expiresIn: number;
+
+  static deserialize(tokenDao: Record<string, unknown>): Token {
+    return deserialize(tokenDao, Token);
+  }
 }
