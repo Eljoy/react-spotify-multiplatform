@@ -11,9 +11,12 @@
     "test": "jest",
     "watch": "tsc --watch"
   },
-  "devDependencies": {},
   "dependencies": {
+    "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
+    "axios-retry": "^3.1.9",
     "inversify": "^5.0.5",
+    "inversify-inject-decorators": "^3.1.0",
     "jest": "^26.6.3",
     "react": "16.13.1",
     "react-redux": "^7.2.3",
