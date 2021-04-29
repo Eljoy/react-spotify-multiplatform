@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axiosRetry, { IAxiosRetryConfig } from 'axios-retry'
-import { inject } from 'inversify'
 import { provide } from 'inversify-binding-decorators'
 import { AppDependencies } from '../dependencies'
 import { Auth } from '../features'
+import { spotifyAppDecorators } from '../inversify.config'
 
 const retryableHTTPStatusCodes = [
   401, // [Auth Error]
@@ -39,7 +39,7 @@ export default class ApiClientBuilder {
   private requestInterceptors = []
   private retryConfig = null
 
-  @inject(AppDependencies.Auth.Repository)
+  @spotifyAppDecorators.lazyInject(AppDependencies.Auth.Repository)
   private authRepository: Auth.SpotifyAuthRepository
 
   withRetryRequest(retryConfig: IAxiosRetryConfig = {}) {
