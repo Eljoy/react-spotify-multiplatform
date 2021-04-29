@@ -1,11 +1,11 @@
 import { inject } from 'inversify'
-import { UserProfileApi } from '../api'
 import { AppDependencies } from '../../../../dependencies'
-import { UserCacheService } from '../cache'
+import { spotifyAppDecorators } from '../../../../inversify.config'
 import { User } from '../../entities'
-import { provide } from 'inversify-binding-decorators'
+import { UserProfileApi } from '../api'
+import { UserCacheService } from '../cache'
 
-@provide(AppDependencies.CURRENT_USER_REPOSITORY)
+@spotifyAppDecorators.provideSingleton(AppDependencies.CURRENT_USER_REPOSITORY)
 export default class CurrentUserRepository {
   private currentUser: User = null
 

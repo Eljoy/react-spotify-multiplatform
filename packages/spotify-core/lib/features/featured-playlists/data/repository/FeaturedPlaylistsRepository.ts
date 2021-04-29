@@ -1,10 +1,12 @@
 import { inject } from 'inversify'
 import { AppDependencies } from '../../../../dependencies'
 import { PlaylistPreview } from '../../../../entities'
+import { spotifyAppDecorators } from '../../../../inversify.config'
 import { FeaturedPlaylistsApi } from '../api'
-import { provide } from 'inversify-binding-decorators'
 
-@provide(AppDependencies.FEATURED_PLAYLISTS_REPOSITORY)
+@spotifyAppDecorators.provideSingleton(
+  AppDependencies.FEATURED_PLAYLISTS_REPOSITORY
+)
 export default class FeaturedPlaylistsRepository {
   @inject(AppDependencies.FEATURED_PLAYLIST_API)
   private featuredPlaylistApi: FeaturedPlaylistsApi
