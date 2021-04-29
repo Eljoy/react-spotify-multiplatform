@@ -1,25 +1,26 @@
-import { inject, injectable } from "inversify";
-import { UserProfileApi } from "../api";
-import { AppDependencies } from "../../../../dependencies";
-import { UserCacheService } from "../cache";
-import { User } from "../../entities";
+import { inject } from 'inversify'
+import { UserProfileApi } from '../api'
+import { AppDependencies } from '../../../../dependencies'
+import { UserCacheService } from '../cache'
+import { User } from '../../entities'
+import { provide } from 'inversify-binding-decorators'
 
-@injectable()
+@provide(AppDependencies.CURRENT_USER_REPOSITORY)
 export default class CurrentUserRepository {
-  private currentUser: User = null;
+  private currentUser: User = null
 
   @inject(AppDependencies.USER_PROFILE_API)
-  private userProfileApi: UserProfileApi;
+  private userProfileApi: UserProfileApi
 
   @inject(AppDependencies.USER_CACHE_SERVICE)
-  private userCacheService: UserCacheService;
+  private userCacheService: UserCacheService
 
   async getCurrentUser(): Promise<User | null> {
-    this.currentUser ||= await this.userCacheService.getCurrentUser();
+    this.currentUser ||= await this.userCacheService.getCurrentUser()
     if (!this.currentUser) {
-      this.currentUser = await this.userProfileApi.fetchCurrentUser();
+      this.currentUser = await this.userProfileApi.fetchCurrentUser()
     }
-    return this.currentUser;
+    return this.currentUser
   }
 
   async removeCurrentUser(): Promise<void> {

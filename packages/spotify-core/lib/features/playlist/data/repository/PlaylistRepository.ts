@@ -1,12 +1,13 @@
-import { inject, injectable } from "inversify";
-import { AppDependencies } from "../../../../dependencies";
-import { Playlist } from "../../../../entities";
-import { PlaylistApi } from "../api";
+import { inject } from 'inversify'
+import { AppDependencies } from '../../../../dependencies'
+import { Playlist } from '../../../../entities'
+import { PlaylistApi } from '../api'
+import { provide } from 'inversify-binding-decorators'
 
-@injectable()
+@provide(AppDependencies.PLAYLIST_REPOSITORY)
 export default class PlaylistRepository {
   @inject(AppDependencies.PLAYLIST_API)
-  private playlistApi: PlaylistApi;
+  private playlistApi: PlaylistApi
 
   async getPlaylist(playlistId: string): Promise<Playlist> {
     return this.playlistApi.fetchPlaylist(playlistId)
