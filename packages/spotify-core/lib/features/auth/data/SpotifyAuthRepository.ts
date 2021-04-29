@@ -5,18 +5,18 @@ import { spotifyAppDecorators } from '../../../inversify.config'
 import { AuthRepository, AuthService } from '../domain'
 import { Token } from '../entities'
 
-@spotifyAppDecorators.provideSingleton(AppDependencies.SPOTIFY_AUTH_REPOSITORY)
+@spotifyAppDecorators.provideSingleton(AppDependencies.Auth.Repository)
 export class SpotifyAuthRepository
   extends Observable<Token>
   implements AuthRepository {
   @observableValue()
   private token?: Token
 
-  @inject(AppDependencies.CACHE_SERVICE)
+  @inject(AppDependencies.Common.CacheService)
   private cacheService: CacheService
 
   constructor(
-    @inject(AppDependencies.SPOTIFY_AUTH_SERVICE)
+    @inject(AppDependencies.Auth.Service)
     private authService: AuthService
   ) {
     super()

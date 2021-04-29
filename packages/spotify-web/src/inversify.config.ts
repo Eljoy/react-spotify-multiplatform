@@ -1,19 +1,19 @@
+import { buildProviderModule } from 'inversify-binding-decorators'
 import {
-  spotifyAppContainer,
-  Auth,
   AppDependencies,
+  Auth,
   CacheService,
+  spotifyAppContainer,
 } from 'spotify-core'
 import { WebCacheService, WebSpotifyAuthService } from './app/dependencies'
-import { buildProviderModule } from 'inversify-binding-decorators'
 
 spotifyAppContainer
-  .bind<Auth.SpotifyAuthService>(AppDependencies.SPOTIFY_AUTH_SERVICE)
+  .bind<Auth.SpotifyAuthService>(AppDependencies.Auth.Service)
   .to(WebSpotifyAuthService)
   .inSingletonScope()
 
 spotifyAppContainer
-  .bind<CacheService>(AppDependencies.CACHE_SERVICE)
+  .bind<CacheService>(AppDependencies.Common.CacheService)
   .to(WebCacheService)
 
 spotifyAppContainer.load(buildProviderModule())

@@ -1,14 +1,23 @@
-export enum AppDependencies {
-  SPOTIFY_AUTH_PROVIDER = 'SPOTIFY_AUTH_PROVIDER',
-  SPOTIFY_AUTH_SERVICE = 'SPOTIFY_AUTH_SERVICE',
-  SPOTIFY_AUTH_REPOSITORY = 'SPOTIFY_AUTH_REPOSITORY',
-  CACHE_SERVICE = 'CACHE_SERVICE',
-  USER_CACHE_SERVICE = 'USER_CACHE_SERVICE',
-  CURRENT_USER_REPOSITORY = 'CURRENT_USER_REPOSITORY',
-  FEATURED_PLAYLISTS_REPOSITORY = 'FEATURED_PLAYLISTS_REPOSITORY',
-  FEATURED_PLAYLIST_API  = 'FEATURED_PLAYLIST_API',
-  API_CLIENT_BUILDER = 'API_CLIENT_BUILDER',
-  USER_PROFILE_API = 'USER_PROFILE_API',
-  PLAYLIST_API = 'PLAYLIST_API',
-  PLAYLIST_REPOSITORY = 'PLAYLIST_REPOSITORY',
-}
+export const AppDependencies = Object.freeze({
+  Auth: {
+    Service: 'AuthService',
+    Repository: 'AuthRepository',
+  },
+  FeaturedPlaylist: {
+    Repository: 'FeaturedPlaylistsRepository',
+    Api: 'FeaturedPlaylistApi',
+  },
+  Playlist: {
+    Api: 'PlaylistApi',
+    Repository: 'PlaylistRepository',
+  },
+  User: {
+    CacheService: 'UserCacheService',
+    CurrentUserRepository: 'CurrentUserRepository',
+    Api: 'Api',
+  },
+  Common: {
+    ApiClientBuilder: 'ApiClientBuilder',
+    CacheService: 'CacheService',
+  },
+})

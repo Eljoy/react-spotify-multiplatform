@@ -1,20 +1,20 @@
-import {
-  spotifyAppContainer,
-  Auth,
-  AppDependencies,
-  CacheService,
-} from 'spotify-core';
-import NativeSpotifyAuthService from './app/dependencies/NativeSpotifyAuthService';
-import {NativeCacheService} from './app/dependencies';
 import {buildProviderModule} from 'inversify-binding-decorators';
+import {
+  AppDependencies,
+  Auth,
+  CacheService,
+  spotifyAppContainer,
+} from 'spotify-core';
+import {NativeCacheService} from './app/dependencies';
+import NativeSpotifyAuthService from './app/dependencies/NativeSpotifyAuthService';
 
 spotifyAppContainer
-  .bind<Auth.SpotifyAuthService>(AppDependencies.SPOTIFY_AUTH_SERVICE)
+  .bind<Auth.SpotifyAuthService>(AppDependencies.Auth.Service)
   .to(NativeSpotifyAuthService)
   .inSingletonScope();
 
 spotifyAppContainer
-  .bind<CacheService>(AppDependencies.CACHE_SERVICE)
+  .bind<CacheService>(AppDependencies.Common.CacheService)
   .to(NativeCacheService);
 
 spotifyAppContainer.load(buildProviderModule());

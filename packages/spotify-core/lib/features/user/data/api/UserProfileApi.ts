@@ -1,15 +1,15 @@
-import { ApiClientBuilder, ApiClient } from '../../../../api'
-import { inject, injectable } from 'inversify'
+import { inject } from 'inversify'
+import { provide } from 'inversify-binding-decorators'
+import { ApiClient, ApiClientBuilder } from '../../../../api'
 import { AppDependencies } from '../../../../dependencies'
 import { User } from '../../entities'
-import { provide } from 'inversify-binding-decorators'
 
-@provide(AppDependencies.USER_PROFILE_API)
+@provide(AppDependencies.User.Api)
 export default class UserProfileApi {
   private apiClient: ApiClient
 
   constructor(
-    @inject(AppDependencies.API_CLIENT_BUILDER)
+    @inject(AppDependencies.User.Api)
     apiClientBuilder: ApiClientBuilder
   ) {
     this.apiClient = apiClientBuilder

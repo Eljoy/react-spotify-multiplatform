@@ -1,49 +1,51 @@
-import { AppDependencies } from "../../../dependencies";
-import { put, call, takeLatest, take, all, fork } from "redux-saga/effects";
-import { signIn, signOut } from "../data";
-import { buffers, eventChannel } from "redux-saga";
-import { Token } from "../entities";
-import { AuthRepository } from "../domain";
-import { byLazy } from "../../../common";
-import { spotifyAppContainer } from "../../../inversify.config";
+import { buffers, eventChannel } from 'redux-saga'
+import { all, call, fork, put, take, takeLatest } from 'redux-saga/effects'
+import { byLazy } from '../../../common'
+import { AppDependencies } from '../../../dependencies'
+import { spotifyAppContainer } from '../../../inversify.config'
+import { signIn, signOut } from '../data'
+import { AuthRepository } from '../domain'
+import { Token } from '../entities'
 
-const authRepository = byLazy(() => spotifyAppContainer.get<AuthRepository>(AppDependencies.SPOTIFY_AUTH_REPOSITORY));
+const authRepository = byLazy(() =>
+  spotifyAppContainer.get<AuthRepository>(AppDependencies.Auth.Repository)
+)
 
 export default function* authSaga() {
-  const token = yield call(authRepository().getAuthToken);
+  const token = yield call(authRepository().getAuthToken)
   if (token) {
-    yield put(signIn.success(token));
+    yield put(signIn.success(token))
   }
   yield all([
     takeLatest(signIn.request, promptOauthSignInFlow),
     takeLatest(signOut.request, signOutSaga),
-    fork(watchAuthChange)
-  ]);
+    fork(watchAuthChange),
+  ])
 }
 
 function* promptOauthSignInFlow() {
-  yield call(authRepository().promptOauthSignInFlow);
+  yield call(authRepository().promptOauthSignInFlow)
 }
 
 function* signOutSaga() {
-  yield call([authRepository(), "signOut"]);
-  yield put(signOut.success());
+  yield call([authRepository(), 'signOut'])
+  yield put(signOut.success())
 }
 
 function* watchAuthChange() {
-  const channel = eventChannel(emitter => {
+  const channel = eventChannel((emitter) => {
     const subscriber = (token: Token) => {
-      emitter({ token });
-    };
-    authRepository().subscribe(subscriber);
+      emitter({ token })
+    }
+    authRepository().subscribe(subscriber)
     return () => {
-      authRepository().unsubscribe(subscriber);
-    };
-  }, buffers.sliding(1));
+      authRepository().unsubscribe(subscriber)
+    }
+  }, buffers.sliding(1))
   while (true) {
-    const { token } = yield take(channel);
+    const { token } = yield take(channel)
     if (token) {
-      yield put(signIn.success(token));
+      yield put(signIn.success(token))
     }
   }
 }

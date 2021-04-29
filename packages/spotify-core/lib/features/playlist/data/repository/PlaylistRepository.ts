@@ -4,9 +4,9 @@ import { Playlist } from '../../../../entities'
 import { spotifyAppDecorators } from '../../../../inversify.config'
 import { PlaylistApi } from '../api'
 
-@spotifyAppDecorators.provideSingleton(AppDependencies.PLAYLIST_REPOSITORY)
+@spotifyAppDecorators.provideSingleton(AppDependencies.Playlist.Repository)
 export default class PlaylistRepository {
-  @inject(AppDependencies.PLAYLIST_API)
+  @inject(AppDependencies.Playlist.Api)
   private playlistApi: PlaylistApi
 
   async getPlaylist(playlistId: string): Promise<Playlist> {

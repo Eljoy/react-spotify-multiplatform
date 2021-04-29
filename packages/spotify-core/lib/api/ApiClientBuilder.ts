@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axiosRetry, { IAxiosRetryConfig } from 'axios-retry'
+import { inject } from 'inversify'
+import { provide } from 'inversify-binding-decorators'
 import { AppDependencies } from '../dependencies'
 import { Auth } from '../features'
-import { inject, injectable } from 'inversify'
-import { provide } from 'inversify-binding-decorators'
 
 const retryableHTTPStatusCodes = [
   401, // [Auth Error]
@@ -34,12 +34,12 @@ function exponentialDelay(retryNumber = 0) {
 
 export type ApiClient = AxiosInstance
 
-@provide(AppDependencies.API_CLIENT_BUILDER)
+@provide(AppDependencies.Common.ApiClientBuilder)
 export default class ApiClientBuilder {
   private requestInterceptors = []
   private retryConfig = null
 
-  @inject(AppDependencies.SPOTIFY_AUTH_REPOSITORY)
+  @inject(AppDependencies.Auth.Repository)
   private authRepository: Auth.SpotifyAuthRepository
 
   withRetryRequest(retryConfig: IAxiosRetryConfig = {}) {

@@ -5,14 +5,16 @@ import { User } from '../../entities'
 import { UserProfileApi } from '../api'
 import { UserCacheService } from '../cache'
 
-@spotifyAppDecorators.provideSingleton(AppDependencies.CURRENT_USER_REPOSITORY)
+@spotifyAppDecorators.provideSingleton(
+  AppDependencies.User.CurrentUserRepository
+)
 export default class CurrentUserRepository {
   private currentUser: User = null
 
-  @inject(AppDependencies.USER_PROFILE_API)
+  @inject(AppDependencies.User.Api)
   private userProfileApi: UserProfileApi
 
-  @inject(AppDependencies.USER_CACHE_SERVICE)
+  @inject(AppDependencies.User.CacheService)
   private userCacheService: UserCacheService
 
   async getCurrentUser(): Promise<User | null> {

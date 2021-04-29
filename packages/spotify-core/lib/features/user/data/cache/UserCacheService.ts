@@ -1,15 +1,15 @@
-import { inject, injectable } from 'inversify'
+import { inject } from 'inversify'
+import { provide } from 'inversify-binding-decorators'
 import { AppDependencies } from '../../../../dependencies'
 import { User } from '../../entities'
-import { provide } from 'inversify-binding-decorators'
 
 enum Keys {
   CurrentUser = 'CurrentUser',
 }
 
-@provide(AppDependencies.USER_CACHE_SERVICE)
+@provide(AppDependencies.User.CacheService)
 export default class UserCacheService {
-  @inject(AppDependencies.CACHE_SERVICE)
+  @inject(AppDependencies.Common.CacheService)
   private cacheService
 
   async getCurrentUser(): Promise<User | null> {

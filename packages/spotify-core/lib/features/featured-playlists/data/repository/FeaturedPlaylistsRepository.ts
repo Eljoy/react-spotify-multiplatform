@@ -5,10 +5,10 @@ import { spotifyAppDecorators } from '../../../../inversify.config'
 import { FeaturedPlaylistsApi } from '../api'
 
 @spotifyAppDecorators.provideSingleton(
-  AppDependencies.FEATURED_PLAYLISTS_REPOSITORY
+  AppDependencies.FeaturedPlaylist.Repository
 )
 export default class FeaturedPlaylistsRepository {
-  @inject(AppDependencies.FEATURED_PLAYLIST_API)
+  @inject(AppDependencies.FeaturedPlaylist.Api)
   private featuredPlaylistApi: FeaturedPlaylistsApi
 
   async getFeaturedPlaylists(): Promise<PlaylistPreview[]> {
