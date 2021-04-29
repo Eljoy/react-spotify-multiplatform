@@ -9,7 +9,7 @@ export default class UserProfileApi {
   private apiClient: ApiClient
 
   constructor(
-    @inject(AppDependencies.User.Api)
+    @inject(AppDependencies.Common.ApiClientBuilder)
     apiClientBuilder: ApiClientBuilder
   ) {
     this.apiClient = apiClientBuilder
