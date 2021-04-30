@@ -13,6 +13,7 @@ export default class FeaturedPlaylistsApi {
     apiClientBuilder: ApiClientBuilder
   ) {
     this.apiClient = apiClientBuilder
+      .withCacheResponse()
       .withRetryRequest()
       .withAuthHeader()
       .build()
