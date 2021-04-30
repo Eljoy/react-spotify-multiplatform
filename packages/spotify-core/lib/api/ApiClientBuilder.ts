@@ -1,9 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { IAxiosCacheAdapterOptions, setupCache } from 'axios-cache-adapter'
 import axiosRetry, { IAxiosRetryConfig } from 'axios-retry'
 import { provide } from 'inversify-binding-decorators'
 import { AppDependencies } from '../dependencies'
 import { Auth } from '../features'
 import { spotifyAppDecorators } from '../inversify.config'
+import ApiCacheStore from './ApiCacheStore'
 
 const retryableHTTPStatusCodes = [
   401, // [Auth Error]
@@ -12,7 +14,7 @@ const retryableHTTPStatusCodes = [
   500, // [Internal Server Error]
   502, // [Bad Gateway]
   503, // [Service Unavailable]
-  504, //  [Gateway Timeout]
+  504, // [Gateway Timeout]
 ]
 
 const DEFAULT_RETRY_CONFIG: IAxiosRetryConfig = {
@@ -24,6 +26,12 @@ const DEFAULT_RETRY_CONFIG: IAxiosRetryConfig = {
       error.message === 'Network Error'
     )
   },
+}
+
+const DEFAULT_CACHE_CONFIG: IAxiosCacheAdapterOptions = {
+  maxAge: 15 * 60 * 1000,
+  readHeaders: true,
+  readOnError: true,
 }
 
 function exponentialDelay(retryNumber = 0) {
@@ -38,6 +46,7 @@ export type ApiClient = AxiosInstance
 export default class ApiClientBuilder {
   private requestInterceptors = []
   private retryConfig = null
+  private adapter = null
 
   @spotifyAppDecorators.lazyInject(AppDependencies.Auth.Repository)
   private authRepository: Auth.SpotifyAuthRepository
@@ -54,8 +63,21 @@ export default class ApiClientBuilder {
     return this
   }
 
+  withCacheResponse(cacheConfig: IAxiosCacheAdapterOptions = {}) {
+    const cache = setupCache({
+      store: new ApiCacheStore(),
+      ...DEFAULT_CACHE_CONFIG,
+      ...cacheConfig,
+    })
+    this.adapter = cache.adapter
+    return this
+  }
+
   build(config: AxiosRequestConfig = {}) {
-    const client = axios.create(config)
+    const client = axios.create({
+      adapter: this.adapter,
+      ...config,
+    })
     this.requestInterceptors.forEach((interceptor) => {
       client.interceptors.request.use(interceptor, null)
     })

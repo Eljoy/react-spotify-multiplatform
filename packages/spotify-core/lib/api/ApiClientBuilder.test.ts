@@ -3,16 +3,6 @@ import { ApiClientBuilder } from './index'
 
 describe('ApiClientBuilder', () => {
   describe('withRetryRequest', () => {
-    it('should resolve on subsequent successful request', async () => {
-      const retryClient = new ApiClientBuilder().withRetryRequest().build()
-
-      const retryClientMock = new MockAdapter(retryClient)
-      retryClientMock.onAny().replyOnce(200)
-
-      const { status } = await retryClient.get('retryTest')
-      expect(status).toEqual(200)
-    })
-
     it('should make subsequent request after predefined timeout', async () => {
       const retryDelayMs = 100
       const retryClient = new ApiClientBuilder()
