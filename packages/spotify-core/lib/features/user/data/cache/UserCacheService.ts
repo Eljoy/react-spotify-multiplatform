@@ -1,7 +1,7 @@
 import { inject } from 'inversify'
 import { provide } from 'inversify-binding-decorators'
 import { AppDependencies } from '../../../../dependencies'
-import { User } from '../../entities'
+import { Entities } from '../../../../entities'
 
 enum Keys {
   CurrentUser = 'CurrentUser',
@@ -12,14 +12,14 @@ export default class UserCacheService {
   @inject(AppDependencies.Common.CacheService)
   private cacheService
 
-  async getCurrentUser(): Promise<User | null> {
+  async getCurrentUser(): Promise<Entities.User | null> {
     const userDAO: Record<string, unknown> = await this.cacheService.get(
       Keys.CurrentUser
     )
-    return userDAO ? User.deserialize(userDAO) : null
+    return userDAO ? Entities.User.deserialize(userDAO) : null
   }
 
-  async putCurrentUser(user: User): Promise<void> {
+  async putCurrentUser(user: Entities.User): Promise<void> {
     return this.cacheService.put(Keys.CurrentUser, user.toString())
   }
 

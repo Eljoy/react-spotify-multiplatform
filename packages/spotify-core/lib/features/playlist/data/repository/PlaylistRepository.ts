@@ -1,6 +1,6 @@
 import { inject } from 'inversify'
 import { AppDependencies } from '../../../../dependencies'
-import { Playlist } from '../../../../entities'
+import { Entities } from '../../../../entities'
 import { spotifyAppDecorators } from '../../../../inversify.config'
 import { PlaylistApi } from '../api'
 
@@ -9,7 +9,7 @@ export default class PlaylistRepository {
   @inject(AppDependencies.Playlist.Api)
   private playlistApi: PlaylistApi
 
-  async getPlaylist(playlistId: string): Promise<Playlist> {
+  async getPlaylist(playlistId: string): Promise<Entities.Playlist> {
     return this.playlistApi.fetchPlaylist(playlistId)
   }
 }

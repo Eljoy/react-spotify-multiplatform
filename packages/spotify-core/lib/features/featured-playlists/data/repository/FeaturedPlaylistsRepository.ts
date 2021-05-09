@@ -1,6 +1,6 @@
 import { inject } from 'inversify'
 import { AppDependencies } from '../../../../dependencies'
-import { PlaylistPreview } from '../../../../entities'
+import { Entities } from '../../../../entities'
 import { spotifyAppDecorators } from '../../../../inversify.config'
 import { FeaturedPlaylistsApi } from '../api'
 
@@ -11,7 +11,7 @@ export default class FeaturedPlaylistsRepository {
   @inject(AppDependencies.FeaturedPlaylist.Api)
   private featuredPlaylistApi: FeaturedPlaylistsApi
 
-  async getFeaturedPlaylists(): Promise<PlaylistPreview[]> {
+  async getFeaturedPlaylists(): Promise<Entities.PlaylistPreview[]> {
     return this.featuredPlaylistApi.fetchFeaturedPlaylists()
   }
 }

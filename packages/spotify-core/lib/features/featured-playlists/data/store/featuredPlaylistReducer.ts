@@ -1,17 +1,22 @@
-import { Reducer } from "typesafe-actions/dist/type-helpers";
-import { PlaylistPreview } from "../../../../entities";
-import { RootStateOrAny } from "react-redux";
-import { createReducer } from "typesafe-actions";
-import { combineReducers } from "redux";
-import { fetchFeaturedPlaylists } from "./featuredPlaylistActions";
+import { RootStateOrAny } from 'react-redux'
+import { combineReducers } from 'redux'
+import { createReducer } from 'typesafe-actions'
+import { Reducer } from 'typesafe-actions/dist/type-helpers'
+import { Entities } from '../../../../entities'
+import { fetchFeaturedPlaylists } from './featuredPlaylistActions'
 
 const initialState = {
-  playlists: []
-};
+  playlists: [],
+}
 
-const playlists: Reducer<PlaylistPreview[], RootStateOrAny> = createReducer(initialState.playlists)
-  .handleAction(fetchFeaturedPlaylists.success, (_, action) => action.payload);
+const playlists: Reducer<
+  Entities.PlaylistPreview[],
+  RootStateOrAny
+> = createReducer(initialState.playlists).handleAction(
+  fetchFeaturedPlaylists.success,
+  (_, action) => action.payload
+)
 
 export default combineReducers({
-  playlists: playlists
+  playlists: playlists,
 })

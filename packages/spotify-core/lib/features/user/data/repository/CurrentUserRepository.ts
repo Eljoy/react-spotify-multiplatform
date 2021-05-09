@@ -1,7 +1,7 @@
 import { inject } from 'inversify'
 import { AppDependencies } from '../../../../dependencies'
+import { Entities } from '../../../../entities'
 import { spotifyAppDecorators } from '../../../../inversify.config'
-import { User } from '../../entities'
 import { UserProfileApi } from '../api'
 import { UserCacheService } from '../cache'
 
@@ -9,7 +9,7 @@ import { UserCacheService } from '../cache'
   AppDependencies.User.CurrentUserRepository
 )
 export default class CurrentUserRepository {
-  private currentUser: User = null
+  private currentUser: Entities.User = null
 
   @inject(AppDependencies.User.Api)
   private userProfileApi: UserProfileApi
@@ -17,7 +17,7 @@ export default class CurrentUserRepository {
   @inject(AppDependencies.User.CacheService)
   private userCacheService: UserCacheService
 
-  async getCurrentUser(): Promise<User | null> {
+  async getCurrentUser(): Promise<Entities.User | null> {
     this.currentUser ||= await this.userCacheService.getCurrentUser()
     if (!this.currentUser) {
       this.currentUser = await this.userProfileApi.fetchCurrentUser()

@@ -1,17 +1,19 @@
-import { AuthService } from "../domain";
-import { Token } from "../entities";
-import { Observable } from "../../../common";
+import { Observable } from '../../../common'
+import { Entities } from '../../../entities'
+import { AuthService } from '../domain'
 
-export default abstract class SpotifyAuthService extends Observable<Token> implements AuthService {
-  abstract getRedirectResult(): Promise<Token | null>;
+export default abstract class SpotifyAuthService
+  extends Observable<Entities.Token>
+  implements AuthService {
+  abstract getRedirectResult(): Promise<Entities.Token | null>
 
-  abstract promptSignInFlow(): Promise<void>;
+  abstract promptSignInFlow(): Promise<void>
 
-  validateToken(token:Token): boolean {
-    return true;
+  validateToken(token: Entities.Token): boolean {
+    return true
   }
 
-  refreshToken(): Promise<Token> {
-    return Promise.resolve(undefined);
+  refreshToken(): Promise<Entities.Token> {
+    return Promise.resolve(undefined)
   }
 }

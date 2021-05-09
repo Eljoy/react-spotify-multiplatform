@@ -1,10 +1,10 @@
-import { Token } from '../entities'
 import { Observable } from '../../../common'
+import { Entities } from '../../../entities'
 
-export interface AuthRepository extends Observable<Token> {
+export interface AuthRepository extends Observable<Entities.Token> {
   promptOauthSignInFlow(): Promise<void>
 
-  getAuthToken(): Promise<Token>
+  getAuthToken(): Promise<Entities.Token>
 
   isSignedIn(): Promise<boolean>
 

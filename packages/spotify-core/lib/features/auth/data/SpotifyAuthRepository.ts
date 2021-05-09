@@ -1,16 +1,16 @@
 import { inject } from 'inversify'
 import { CacheService, Observable, observableValue } from '../../../common'
 import { AppDependencies } from '../../../dependencies'
+import { Entities } from '../../../entities'
 import { spotifyAppDecorators } from '../../../inversify.config'
 import { AuthRepository, AuthService } from '../domain'
-import { Token } from '../entities'
 
 @spotifyAppDecorators.provideSingleton(AppDependencies.Auth.Repository)
 export class SpotifyAuthRepository
-  extends Observable<Token>
+  extends Observable<Entities.Token>
   implements AuthRepository {
   @observableValue()
-  private token?: Token
+  private token?: Entities.Token
 
   @inject(AppDependencies.Common.CacheService)
   private cacheService: CacheService
@@ -36,7 +36,7 @@ export class SpotifyAuthRepository
     return Boolean(token)
   }
 
-  getAuthToken = async (): Promise<Token | null> => {
+  getAuthToken = async (): Promise<Entities.Token | null> => {
     switch (true) {
       case Boolean(this.token):
         break
@@ -54,7 +54,7 @@ export class SpotifyAuthRepository
     return this.token
   }
 
-  private async getTokenFromRedirectResult(): Promise<Token | null> {
+  private async getTokenFromRedirectResult(): Promise<Entities.Token | null> {
     this.token = await this.authService.getRedirectResult()
     if (this.token) {
       await this.setToken(this.token)
@@ -62,12 +62,12 @@ export class SpotifyAuthRepository
     return this.token
   }
 
-  private async getTokenFromCache(): Promise<Token | null> {
+  private async getTokenFromCache(): Promise<Entities.Token | null> {
     this.token = await this.cacheService.getToken()
     return this.token
   }
 
-  private async setToken(token: Token) {
+  private async setToken(token: Entities.Token) {
     this.token = token
     this.notify(token)
     if (token) {

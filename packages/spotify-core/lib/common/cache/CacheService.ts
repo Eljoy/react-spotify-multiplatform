@@ -1,16 +1,16 @@
-import { Auth } from '../../features'
+import { Entities } from '../../entities'
 
 enum Keys {
   Token = 'Token',
 }
 
 export abstract class CacheService {
-  async getToken(): Promise<Auth.Token | null> {
+  async getToken(): Promise<Entities.Token | null> {
     const tokenDAO: Record<string, unknown> = await this.get(Keys.Token)
-    return tokenDAO ? Auth.Token.deserialize(tokenDAO) : null
+    return tokenDAO ? Entities.Token.deserialize(tokenDAO) : null
   }
 
-  async putToken(token: Auth.Token): Promise<void> {
+  async putToken(token: Entities.Token): Promise<void> {
     return this.put(Keys.Token, token.toString())
   }
 

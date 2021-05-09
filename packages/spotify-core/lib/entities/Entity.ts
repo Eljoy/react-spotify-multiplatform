@@ -1,12 +1,16 @@
-import { Serializable, serialize } from "typescript-json-serializer";
+import { deserialize, Serializable, serialize } from 'ts-jackson'
 
 @Serializable()
 export default class Entity {
   serialize(): Record<string, unknown> {
-    return serialize(this);
+    return serialize(this)
   }
 
   toString(): string {
-    return JSON.stringify(this.serialize());
+    return JSON.stringify(this.serialize())
+  }
+
+  static deserialize(entityJson: Record<string, unknown>) {
+    return deserialize(entityJson, this)
   }
 }
