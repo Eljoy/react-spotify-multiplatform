@@ -1,11 +1,11 @@
 import { buffers, eventChannel } from 'redux-saga'
 import { all, call, fork, put, take, takeLatest } from 'redux-saga/effects'
-import { byLazy } from '../../../common'
-import { AppDependencies } from '../../../dependencies'
-import { Entities } from '../../../entities'
-import { spotifyAppContainer } from '../../../inversify.config'
-import { signIn, signOut } from '../data'
-import { AuthRepository } from '../domain'
+import { byLazy } from '../../../../common'
+import { AppDependencies } from '../../../../dependencies'
+import { Entities } from '../../../../entities'
+import { spotifyAppContainer } from '../../../../inversify.config'
+import { AuthRepository } from '../../domain'
+import { signIn, signOut } from '../index'
 
 const authRepository = byLazy(() =>
   spotifyAppContainer.get<AuthRepository>(AppDependencies.Auth.Repository)

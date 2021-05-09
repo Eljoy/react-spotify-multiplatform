@@ -1,5 +1,5 @@
 import urlParse from 'url-parse'
-import { required } from '../../../common'
+import { required } from '../../../../common'
 
 export enum Scopes {
   ugcImageUpload = 'ugc-image-upload',
@@ -24,7 +24,7 @@ export enum Scopes {
 }
 
 export enum ResponseType {
-  token = 'token'
+  token = 'token',
 }
 
 export default class SpotifyAuthUrlProvider {
@@ -67,10 +67,10 @@ export default class SpotifyAuthUrlProvider {
   getAuthUrl(): string {
     const authUrl = urlParse('https://accounts.spotify.com/authorize')
     authUrl.set('query', {
-      'client_id': this.clientId,
-      'redirect_uri': this.redirectUri,
-      'scope': this.scopes,
-      'response_type': this.responseType,
+      client_id: this.clientId,
+      redirect_uri: this.redirectUri,
+      scope: this.scopes,
+      response_type: this.responseType,
     })
     return authUrl.toString()
   }

@@ -1,6 +1,6 @@
-import { Observable } from '../../../common'
-import { Entities } from '../../../entities'
-import { AuthService } from '../domain'
+import { Observable } from '../../../../common'
+import { Entities } from '../../../../entities'
+import { AuthService } from '../../domain'
 
 export default abstract class SpotifyAuthService
   extends Observable<Entities.Token>

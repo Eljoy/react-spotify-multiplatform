@@ -1,12 +1,12 @@
 import { inject } from 'inversify'
-import { CacheService, Observable, observableValue } from '../../../common'
-import { AppDependencies } from '../../../dependencies'
-import { Entities } from '../../../entities'
-import { spotifyAppDecorators } from '../../../inversify.config'
-import { AuthRepository, AuthService } from '../domain'
+import { CacheService, Observable, observableValue } from '../../../../common'
+import { AppDependencies } from '../../../../dependencies'
+import { Entities } from '../../../../entities'
+import { spotifyAppDecorators } from '../../../../inversify.config'
+import { AuthRepository, AuthService } from '../../domain'
 
 @spotifyAppDecorators.provideSingleton(AppDependencies.Auth.Repository)
-export class SpotifyAuthRepository
+export default class SpotifyAuthRepository
   extends Observable<Entities.Token>
   implements AuthRepository {
   @observableValue()
