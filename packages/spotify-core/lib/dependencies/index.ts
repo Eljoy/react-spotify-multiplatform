@@ -1,7 +1,10 @@
 export const AppDependencies = Object.freeze({
   Auth: {
     Service: 'AuthService',
+    Api: 'AuthApi',
+    CacheService: 'AuthCacheService',
     Repository: 'AuthRepository',
+    UrlProvider: 'AuthUrlProvider',
   },
   FeaturedPlaylist: {
     Repository: 'FeaturedPlaylistsRepository',
@@ -19,5 +22,6 @@ export const AppDependencies = Object.freeze({
   Common: {
     ApiClientBuilder: 'ApiClientBuilder',
     CacheService: 'CacheService',
+    LinkingService: 'LinkingService',
   },
 })
