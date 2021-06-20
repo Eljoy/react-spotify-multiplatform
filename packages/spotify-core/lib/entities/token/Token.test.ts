@@ -6,28 +6,38 @@ describe('Token', () => {
     expect(() => Token.deserialize({ access_token: undefined })).toThrow()
   })
 
+  const tokenJSON = {
+    access_token: '234dewwf',
+    refresh_token: '2fed2oekio2',
+    expires_in: 3600,
+    token_type: 'Bearer',
+  }
+
   it('should correctly deserialize to Token when proper data is provided', () => {
-    const tokenData = {
-      accessToken: '234dewwf',
-      expiresIn: 3600,
-      tokenType: 'Bearer',
-    }
-    const token = Token.deserialize({
-      access_token: tokenData.accessToken,
-      expires_in: tokenData.expiresIn.toString(),
-      token_type: tokenData.tokenType,
+    const token = Token.deserialize(tokenJSON)
+    expect(token).toMatchObject({
+      accessToken: tokenJSON.access_token,
+      refreshToken: tokenJSON.refresh_token,
+      expiresIn: tokenJSON.expires_in,
+      expiresAt: expect.any(Date),
+      tokenType: tokenJSON.token_type,
     })
-    expect(token).toMatchObject(tokenData)
+    const expiresAt = Date.now() + tokenJSON.expires_in
+    expect(token.expiresAt.getTime()).toBeLessThanOrEqual(expiresAt)
+    expect(token.expiresAt.getTime()).toBeGreaterThanOrEqual(expiresAt - 100)
   })
 
-  it('should correctly serialize to json', () => {
-    const tokenJSON = {
-      access_token: '234dewwf',
-      expires_in: 2,
-      token_type: 'Bearer',
-    }
+  test('serialize', () => {
     const token = Token.deserialize(tokenJSON)
-    console.log(token)
     expect(serialize(token)).toMatchObject(tokenJSON)
+  })
+
+  test('deserialize, serialize series', () => {
+    const token = Token.deserialize(tokenJSON)
+    const serialized = serialize(token)
+    expect(serialize(token)).toMatchObject(tokenJSON)
+
+    const deserialized = Token.deserialize(serialized)
+    expect(serialize(deserialized)).toEqual(serialized)
   })
 })

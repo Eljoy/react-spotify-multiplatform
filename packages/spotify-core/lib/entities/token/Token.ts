@@ -1,7 +1,6 @@
-import { deserialize, JsonProperty } from 'ts-jackson'
-import Entity from '../Entity'
+import { JsonProperty, SerializableEntity } from 'ts-jackson'
 
-export default class Token extends Entity {
+export default class Token extends SerializableEntity {
   @JsonProperty({ path: 'access_token', required: true })
   public readonly accessToken: string
 
@@ -11,7 +10,18 @@ export default class Token extends Entity {
   @JsonProperty({ path: 'expires_in', required: true })
   public readonly expiresIn: number
 
-  static deserialize(tokenDao: Record<string, unknown>): Token {
-    return deserialize(tokenDao, Token)
-  }
+  @JsonProperty<Date>({
+    path: 'expires_at',
+    afterDeserialize: (deserializedInstance: Token, propertyValue) => {
+      if (propertyValue) {
+        return propertyValue
+      }
+      const expiresAtTimestamp = Date.now() + deserializedInstance.expiresIn
+      return new Date(expiresAtTimestamp)
+    },
+  })
+  public readonly expiresAt: Date
+
+  @JsonProperty({ path: 'refresh_token', required: true })
+  public readonly refreshToken: string
 }

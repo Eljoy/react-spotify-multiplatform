@@ -1,8 +1,7 @@
-import { deserialize, JsonProperty, Serializable } from 'ts-jackson'
-import Entity from '../Entity'
+import { JsonProperty, Serializable, SerializableEntity } from 'ts-jackson'
 
 @Serializable()
-export default class Artist extends Entity {
+export default class Artist extends SerializableEntity {
   @JsonProperty()
   readonly id: string
 
@@ -11,8 +10,4 @@ export default class Artist extends Entity {
 
   @JsonProperty()
   readonly href: string
-
-  static deserialize(artistJson: Record<string, unknown>): Artist {
-    return deserialize(artistJson, Artist)
-  }
 }

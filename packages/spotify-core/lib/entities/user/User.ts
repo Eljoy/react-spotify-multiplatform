@@ -1,8 +1,7 @@
-import { deserialize, JsonProperty } from 'ts-jackson'
-import Entity from '../Entity'
+import { JsonProperty, SerializableEntity } from 'ts-jackson'
 import { Image } from '../image'
 
-export default class User extends Entity {
+export default class User extends SerializableEntity {
   @JsonProperty()
   id: string
 
@@ -14,8 +13,4 @@ export default class User extends Entity {
 
   @JsonProperty({ required: true })
   images: Image[]
-
-  static deserialize(userDao: Record<string, unknown>): User {
-    return deserialize(userDao, User)
-  }
 }
