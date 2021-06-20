@@ -11,26 +11,23 @@ export default class SpotifyAuthApi implements AuthApi {
 
   constructor(
     @inject(AppDependencies.Common.ApiClientBuilder)
-    apiClientBuilder: ApiClientBuilder
+    apiClientBuilder
   ) {
-    this.apiClient = apiClientBuilder
-      .withRetryRequest()
+    this.apiClient = (apiClientBuilder as ApiClientBuilder)
       .withBasicAuthHeader()
+      .withRetryRequest()
       .build()
+    this.apiClient.defaults.headers['Content-Type'] =
+      'application/x-www-form-urlencoded'
   }
 
   async refreshToken(token: Entities.Token): Promise<Entities.Token> {
+    const params = new URLSearchParams()
+    params.append('grant_type', 'refresh_token')
+    params.append('refresh_token', token.refreshToken)
     const { data: refreshedToken } = await this.apiClient.post(
       'https://accounts.spotify.com/api/token',
-      {
-        grant_type: 'refresh_token',
-        refresh_token: token.refreshToken,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
+      params.toString()
     )
     return Entities.Token.deserialize(refreshedToken)
   }
@@ -39,14 +36,14 @@ export default class SpotifyAuthApi implements AuthApi {
     code: string,
     redirectUri: string
   ): Promise<Entities.Token> {
-    const { data: token } = await this.apiClient.post(
+    const params = new URLSearchParams()
+    params.append('code', code)
+    params.append('grant_type', 'authorization_code')
+    params.append('redirect_uri', redirectUri)
+    const { data: tokenJson } = await this.apiClient.post(
       'https://accounts.spotify.com/api/token',
-      {
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUri,
-      }
+      params.toString()
     )
-    return Entities.Token.deserialize(token)
+    return Entities.Token.deserialize(tokenJson)
   }
 }

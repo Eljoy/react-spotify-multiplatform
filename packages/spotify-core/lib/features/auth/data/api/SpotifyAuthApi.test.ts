@@ -43,11 +43,11 @@ describe('SpotifyAuthApi', () => {
       token_type: 'Bearer',
     }
     const token = Token.deserialize(tokenJson)
+    const params = new URLSearchParams()
+    params.append('grant_type', 'refresh_token')
+    params.append('refresh_token', token.refreshToken)
     clientMock
-      .onPost('https://accounts.spotify.com/api/token', {
-        grant_type: 'refresh_token',
-        refresh_token: tokenJson.refresh_token,
-      })
+      .onPost('https://accounts.spotify.com/api/token', params.toString())
       .reply(() => [200, token.serialize()])
     const refreshedToken = await authApi().refreshToken(token)
     expect(refreshedToken).toEqual(token)
@@ -63,12 +63,14 @@ describe('SpotifyAuthApi', () => {
     const redirectUri = 'redirectUri'
     const code = 'code'
     const token = Token.deserialize(tokenJson)
+
+    const params = new URLSearchParams()
+    params.append('code', code)
+    params.append('grant_type', 'authorization_code')
+    params.append('redirect_uri', redirectUri)
+
     clientMock
-      .onPost('https://accounts.spotify.com/api/token', {
-        code,
-        grant_type: 'authorization_code',
-        redirect_uri: redirectUri,
-      })
+      .onPost('https://accounts.spotify.com/api/token', params.toString())
       .reply(() => [200, token.serialize()])
     const refreshedToken = await authApi().requestToken(code, redirectUri)
     expect(refreshedToken).toEqual(token)
