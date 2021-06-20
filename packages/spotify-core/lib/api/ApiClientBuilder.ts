@@ -56,9 +56,24 @@ export default class ApiClientBuilder {
     return this
   }
 
-  withAuthHeader() {
-    if (!this.requestInterceptors.includes(this.authRequestInterceptor)) {
-      this.requestInterceptors.push(this.authRequestInterceptor.bind(this))
+  withAuthBearerHeader() {
+    if (!this.requestInterceptors.includes(this.authBearerRequestInterceptor)) {
+      this.requestInterceptors.push(
+        this.authBearerRequestInterceptor.bind(this)
+      )
+    }
+    return this
+  }
+
+  withBasicAuthHeader() {
+    if (
+      !this.requestInterceptors.includes(
+        ApiClientBuilder.basicAuthRequestInterceptor
+      )
+    ) {
+      this.requestInterceptors.push(
+        ApiClientBuilder.basicAuthRequestInterceptor.bind(this)
+      )
     }
     return this
   }
@@ -90,9 +105,15 @@ export default class ApiClientBuilder {
     return client
   }
 
-  private async authRequestInterceptor(config: AxiosRequestConfig) {
+  private async authBearerRequestInterceptor(config: AxiosRequestConfig) {
     const token = await this.authRepository.getAuthToken()
     config.headers.authorization = `Bearer ${token.accessToken}`
+    return config
+  }
+
+  private static basicAuthRequestInterceptor(config: AxiosRequestConfig) {
+    config.headers.authorization =
+      'Basic MDYwMDYzOTRmMDNlNDFiOWFmNTU3ZTVlMDBhYjIyMjA6OTJhMjg0Y2M2ZjU2NGUzNGE4YjEyNTQ3M2M1YTk4OTc='
     return config
   }
 }
