@@ -1,2 +1,2 @@
-export { default as Observable, Observer } from './Observable'
+export { Observable, Observer } from './Observable'
 export { default as observableValue } from './observableValue'
