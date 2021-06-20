@@ -20,7 +20,7 @@ export default class AuthCacheService {
   }
 
   async putToken(token: Entities.Token): Promise<void> {
-    this.cacheService.put(Keys.Token, token)
+    this.cacheService.put(Keys.Token, token.stringify())
   }
 
   async removeToken(): Promise<void> {
