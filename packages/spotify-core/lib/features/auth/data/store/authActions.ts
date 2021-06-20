@@ -1,4 +1,4 @@
-import { createAsyncAction } from 'typesafe-actions'
+import { createAction, createAsyncAction } from 'typesafe-actions'
 import { Entities } from '../../../../entities'
 
 export const signIn = createAsyncAction(
@@ -12,3 +12,5 @@ export const signOut = createAsyncAction(
   '[AUTH] SIGN_OUT_SUCCESS',
   '[AUTH] SIGN_OUT_FAILURE'
 )<void, void, Error>()
+
+export const setIsSignedIn = createAction('[AUTH] SET_IS_SIGNED_IN')<boolean>()
