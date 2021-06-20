@@ -1,19 +1,24 @@
-import { Observable } from '../../../../common'
+import { provide } from 'inversify-binding-decorators'
+import { AppDependencies } from '../../../../dependencies'
 import { Entities } from '../../../../entities'
-import { AuthService } from '../../domain'
+import { spotifyAppDecorators } from '../../../../inversify.config'
+import { AuthApi, AuthService } from '../../domain'
 
-export default abstract class SpotifyAuthService
-  extends Observable<Entities.Token>
-  implements AuthService {
-  abstract getRedirectResult(): Promise<Entities.Token | null>
-
-  abstract promptSignInFlow(): Promise<void>
+@provide(AppDependencies.Auth.Service)
+export default class SpotifyAuthService implements AuthService {
+  @spotifyAppDecorators.lazyInject(AppDependencies.Auth.Api)
+  private readonly authApi: AuthApi
 
   validateToken(token: Entities.Token): boolean {
-    return true
+    const expiresAt = token.expiresAt.getTime()
+    return Boolean(expiresAt - Date.now())
   }
 
-  refreshToken(): Promise<Entities.Token> {
-    return Promise.resolve(undefined)
+  refreshToken(token: Entities.Token): Promise<Entities.Token> {
+    return this.authApi.refreshToken(token)
+  }
+
+  requestToken(code: string, redirectUri: string): Promise<Entities.Token> {
+    return this.authApi.requestToken(code, redirectUri)
   }
 }
