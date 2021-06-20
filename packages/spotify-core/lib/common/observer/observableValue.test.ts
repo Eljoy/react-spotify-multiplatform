@@ -1,5 +1,4 @@
-import Observable from './Observable'
-import { observableValue } from './index'
+import { Observable, observableValue } from './index'
 
 describe('Observable value test', () => {
   class TestObservableClass extends Observable<string> {
