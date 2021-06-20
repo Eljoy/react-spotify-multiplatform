@@ -1,12 +1,9 @@
-import { Observable } from '../../../common'
 import { Entities } from '../../../entities'
 
-export interface AuthService extends Observable<Entities.Token> {
+export interface AuthService {
   validateToken(token: Entities.Token): boolean
 
-  promptSignInFlow(): Promise<void>
+  requestToken(code: string, redirectUri: string): Promise<Entities.Token>
 
-  getRedirectResult(): Promise<Entities.Token | null>
-
-  refreshToken(): Promise<Entities.Token>
+  refreshToken(token: Entities.Token): Promise<Entities.Token>
 }
