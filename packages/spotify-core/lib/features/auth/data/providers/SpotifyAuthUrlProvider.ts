@@ -25,6 +25,7 @@ export enum Scopes {
 
 export enum ResponseType {
   token = 'token',
+  code = 'code',
 }
 
 export default class SpotifyAuthUrlProvider {
@@ -32,7 +33,7 @@ export default class SpotifyAuthUrlProvider {
   private clientId: string
   @required()
   private redirectUri: string
-  private responseType: ResponseType = ResponseType.token
+  private responseType: ResponseType = ResponseType.code
   private scopes: Scopes[] = []
 
   static create(): SpotifyAuthUrlProvider {
@@ -62,6 +63,10 @@ export default class SpotifyAuthUrlProvider {
   setRedirectUri(redirectUri: string): SpotifyAuthUrlProvider {
     this.redirectUri = redirectUri
     return this
+  }
+
+  getRedirectUri(): string {
+    return this.redirectUri
   }
 
   getAuthUrl(): string {
