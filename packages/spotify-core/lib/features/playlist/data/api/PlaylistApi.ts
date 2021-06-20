@@ -14,7 +14,7 @@ export default class PlaylistApi {
   ) {
     this.apiClient = apiClientBuilder
       .withRetryRequest()
-      .withAuthHeader()
+      .withAuthBearerHeader()
       .build()
   }
 

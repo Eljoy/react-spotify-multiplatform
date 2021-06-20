@@ -14,7 +14,7 @@ export default class UserProfileApi {
   ) {
     this.apiClient = apiClientBuilder
       .withRetryRequest()
-      .withAuthHeader()
+      .withAuthBearerHeader()
       .build()
   }
 
