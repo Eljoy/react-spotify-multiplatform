@@ -1,34 +1,38 @@
 import { inject } from 'inversify'
-import { CacheService, Observable, observableValue } from '../../../../common'
+import parse from 'url-parse'
+import { LinkingService, Observable } from '../../../../common'
 import { AppDependencies } from '../../../../dependencies'
 import { Entities } from '../../../../entities'
 import { spotifyAppDecorators } from '../../../../inversify.config'
 import { AuthRepository, AuthService } from '../../domain'
+import { AuthCacheService } from '../cache'
+import { SpotifyAuthUrlProvider } from '../providers'
 
 @spotifyAppDecorators.provideSingleton(AppDependencies.Auth.Repository)
 export default class SpotifyAuthRepository
-  extends Observable<Entities.Token>
+  extends Observable<AuthRepository.Events>
   implements AuthRepository {
-  @observableValue()
   private token?: Entities.Token
 
-  @inject(AppDependencies.Common.CacheService)
-  private cacheService: CacheService
+  @inject(AppDependencies.Auth.Service)
+  private readonly authService: AuthService
+
+  @inject(AppDependencies.Auth.CacheService)
+  private readonly cacheService: AuthCacheService
+
+  @inject(AppDependencies.Auth.UrlProvider)
+  private readonly urlProvider: SpotifyAuthUrlProvider
 
   constructor(
-    @inject(AppDependencies.Auth.Service)
-    private authService: AuthService
+    @inject(AppDependencies.Common.LinkingService)
+    private readonly linkingService: LinkingService
   ) {
     super()
-    authService.subscribe(this.setToken.bind(this))
+    this.linkingService.onRedirectResult(this.handleRedirect.bind(this))
   }
 
-  async signOut(): Promise<void> {
-    await this.setToken(null)
-  }
-
-  promptOauthSignInFlow = async () => {
-    await this.authService.promptSignInFlow()
+  async signIn(): Promise<void> {
+    await this.linkingService.openUrl(this.urlProvider.getAuthUrl())
   }
 
   async isSignedIn(): Promise<boolean> {
@@ -36,44 +40,82 @@ export default class SpotifyAuthRepository
     return Boolean(token)
   }
 
-  getAuthToken = async (): Promise<Entities.Token | null> => {
-    switch (true) {
-      case Boolean(this.token):
-        break
-      case (await this.getTokenFromRedirectResult()) !== null:
-        break
-      case (await this.getTokenFromCache()) !== null:
-        break
-      case true:
-        return null
-    }
-    if (!this.authService.validateToken(this.token)) {
-      const token = await this.authService.refreshToken()
+  async getAuthToken(): Promise<Entities.Token | null> {
+    try {
+      const cachedToken = await this.getCachedToken()
+      let tokenFromRedirect
+      if (!cachedToken) {
+        const redirectUrl = await this.linkingService.getInitialUrl()
+        tokenFromRedirect = await this.getTokenFromRedirectUrl(redirectUrl)
+      }
+      let token = cachedToken || tokenFromRedirect
+      if (token !== null && !this.authService.validateToken(token)) {
+        token = await this.authService.refreshToken(token)
+      }
       await this.setToken(token)
+      return token
+    } catch (e) {
+      console.log(e)
+      return null
     }
-    return this.token
   }
 
-  private async getTokenFromRedirectResult(): Promise<Entities.Token | null> {
-    this.token = await this.authService.getRedirectResult()
-    if (this.token) {
-      await this.setToken(this.token)
-    }
-    return this.token
+  async signOut(): Promise<void> {
+    await this.removeToken()
+    this.notify({
+      name: AuthRepository.EventNames.SignedOut,
+      value: null,
+    })
   }
 
-  private async getTokenFromCache(): Promise<Entities.Token | null> {
-    this.token = await this.cacheService.getToken()
-    return this.token
+  private async handleRedirect({ url }: { url: string }): Promise<void> {
+    const tokenFromRedirect = await this.getTokenFromRedirectUrl(url)
+    if (tokenFromRedirect !== null) {
+      await this.setToken(tokenFromRedirect)
+    }
+  }
+
+  private async getTokenFromRedirectUrl(
+    redirectUrl: string
+  ): Promise<Entities.Token | null> {
+    try {
+      const parsedUrl = parse(redirectUrl.replace('#', '?'), true)
+      const { code } = Entities.RequestCode.deserialize(parsedUrl.query)
+      return this.authService.requestToken(
+        code,
+        this.urlProvider.getRedirectUri()
+      )
+    } catch (e) {
+      console.log(e)
+      return null
+    }
+  }
+
+  private async getCachedToken(): Promise<Entities.Token | null> {
+    return Boolean(this.token) ? this.token : await this.cacheService.getToken()
+  }
+
+  private async removeToken() {
+    this.token = null
+    await this.cacheService.removeToken()
   }
 
   private async setToken(token: Entities.Token) {
-    this.token = token
-    this.notify(token)
-    if (token) {
-      await this.cacheService.putToken(token)
-    } else {
-      await this.cacheService.removeToken()
+    if (this.token === token) {
+      return
     }
+    if (!this.token) {
+      this.notify({
+        name: AuthRepository.EventNames.SignedIn,
+        value: token,
+      })
+    } else {
+      this.notify({
+        name: AuthRepository.EventNames.TokenRefreshed,
+        value: token,
+      })
+    }
+    this.token = token
+    await this.cacheService.putToken(token)
   }
 }
