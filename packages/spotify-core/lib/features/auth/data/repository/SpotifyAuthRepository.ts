@@ -46,10 +46,12 @@ export default class SpotifyAuthRepository
       let tokenFromRedirect
       if (!cachedToken) {
         const redirectUrl = await this.linkingService.getInitialUrl()
-        tokenFromRedirect = await this.getTokenFromRedirectUrl(redirectUrl)
+        if (redirectUrl) {
+          tokenFromRedirect = await this.getTokenFromRedirectUrl(redirectUrl)
+        }
       }
       let token = cachedToken || tokenFromRedirect
-      if (token !== null && !this.authService.validateToken(token)) {
+      if (token && !this.authService.validateToken(token)) {
         token = await this.authService.refreshToken(token)
       }
       await this.setToken(token)
