@@ -1,12 +1,12 @@
 import { inject } from 'inversify'
 import { provide } from 'inversify-binding-decorators'
-import { ApiClient, ApiClientBuilder } from '../../../../api'
+import { ApiClientBuilder } from '../../../../api'
 import { AppDependencies } from '../../../../dependencies'
 import { Entities } from '../../../../entities'
 
 @provide(AppDependencies.FeaturedPlaylist.Api)
 export default class FeaturedPlaylistsApi {
-  private apiClient: ApiClient
+  private apiClient: ApiClientBuilder.ApiClient
 
   constructor(
     @inject(AppDependencies.Common.ApiClientBuilder)

@@ -34,16 +34,12 @@ const DEFAULT_CACHE_CONFIG: IAxiosCacheAdapterOptions = {
   readOnError: true,
 }
 
-function exponentialDelay(retryNumber = 0) {
-  const seconds = Math.pow(2, retryNumber) * 200
-  const randomMs = 1000 * Math.random()
-  return seconds + randomMs
+export declare namespace ApiClientBuilder {
+  type ApiClient = AxiosInstance
 }
 
-export type ApiClient = AxiosInstance
-
 @provide(AppDependencies.Common.ApiClientBuilder)
-export default class ApiClientBuilder {
+export class ApiClientBuilder {
   private requestInterceptors = []
   private retryConfig = null
   private adapter = null
@@ -116,4 +112,10 @@ export default class ApiClientBuilder {
       'Basic MDYwMDYzOTRmMDNlNDFiOWFmNTU3ZTVlMDBhYjIyMjA6OTJhMjg0Y2M2ZjU2NGUzNGE4YjEyNTQ3M2M1YTk4OTc='
     return config
   }
+}
+
+function exponentialDelay(retryNumber = 0) {
+  const seconds = Math.pow(2, retryNumber) * 200
+  const randomMs = 1000 * Math.random()
+  return seconds + randomMs
 }

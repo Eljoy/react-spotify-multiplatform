@@ -1,13 +1,13 @@
 import { inject } from 'inversify'
 import { provide } from 'inversify-binding-decorators'
-import { ApiClient, ApiClientBuilder } from '../../../../api'
+import { ApiClientBuilder } from '../../../../api'
 import { AppDependencies } from '../../../../dependencies'
 import { Entities } from '../../../../entities'
 import { AuthApi } from '../../domain'
 
 @provide(AppDependencies.Auth.Api)
 export default class SpotifyAuthApi implements AuthApi {
-  private apiClient: ApiClient
+  private apiClient: ApiClientBuilder.ApiClient
 
   constructor(
     @inject(AppDependencies.Common.ApiClientBuilder)
