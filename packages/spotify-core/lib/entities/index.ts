@@ -25,7 +25,7 @@ export namespace Entities {
   export type Artist = InstanceType<typeof ArtistEntity>
   export type Image = InstanceType<typeof ImageEntity>
   export type Playlist = InstanceType<typeof PlaylistEntity>
-  export type PlaylistPreview = InstanceType<typeof PlaylistEntity>
+  export type PlaylistPreview = InstanceType<typeof PlaylistPreviewEntity>
   export type Track = InstanceType<typeof TrackEntity>
   export type Token = InstanceType<typeof TokenEntity>
   export type User = InstanceType<typeof UserEntity>
