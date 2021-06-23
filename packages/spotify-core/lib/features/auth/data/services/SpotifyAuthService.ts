@@ -11,7 +11,7 @@ export default class SpotifyAuthService implements AuthService {
 
   validateToken(token: Entities.Token): boolean {
     const expiresAt = token.expiresAt.getTime()
-    return Boolean(expiresAt - Date.now())
+    return expiresAt - Date.now() > 0
   }
 
   refreshToken(token: Entities.Token): Promise<Entities.Token> {
