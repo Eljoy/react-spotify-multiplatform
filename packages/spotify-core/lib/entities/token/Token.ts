@@ -16,12 +16,13 @@ export default class Token extends SerializableEntity {
       if (propertyValue) {
         return propertyValue
       }
-      const expiresAtTimestamp = Date.now() + deserializedInstance.expiresIn
+      const expiresAtTimestamp =
+        Date.now() + deserializedInstance.expiresIn * 1000
       return new Date(expiresAtTimestamp)
     },
   })
   public readonly expiresAt: Date
 
-  @JsonProperty({ path: 'refresh_token', required: true })
+  @JsonProperty({ path: 'refresh_token' })
   public readonly refreshToken: string
 }

@@ -22,7 +22,7 @@ describe('Token', () => {
       expiresAt: expect.any(Date),
       tokenType: tokenJSON.token_type,
     })
-    const expiresAt = Date.now() + tokenJSON.expires_in
+    const expiresAt = Date.now() + tokenJSON.expires_in * 1000
     expect(token.expiresAt.getTime()).toBeLessThanOrEqual(expiresAt)
     expect(token.expiresAt.getTime()).toBeGreaterThanOrEqual(expiresAt - 100)
   })
