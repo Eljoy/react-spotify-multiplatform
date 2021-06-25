@@ -9,7 +9,7 @@
     "startAndroid": "cd ./packages/spotify-native && yarn android",
     "startIos": "cd ./packages/spotify-native && yarn ios",
     "startWeb": "cd ./packages/spotify-web && yarn start",
-    "clearNodeModules": "find ./ -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn"
+    "nodeModulesClearInstall": "find ./ -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn"
   },
   "devDependencies": {
     "husky": "^4.3.7",
@@ -27,5 +27,8 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "dependencies": {
+    "prettier-plugin-organize-imports": "^1.1.1"
   }
 }
