@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "mkenv": "cd ../../scripts && sh env.sh ../packages/spotify-native/.env",
+    "postinstall": "npm run mkenv"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.2",
@@ -15,10 +17,13 @@
     "@react-native-community/netinfo": "^6.0.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "dotenv": "^10.0.0",
     "inversify": "^5.0.5",
+    "inversify-binding-decorators": "^4.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "0.64.0",
+    "react-native-dotenv": "^2.5.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-reanimated": "^2.0.0",
     "react-native-safe-area-context": "^3.2.0",
@@ -26,7 +31,6 @@
     "react-native-webview": "^11.3.2",
     "react-redux": "^7.2.2",
     "reflect-metadata": "^0.1.13",
-    "inversify-binding-decorators": "^4.0.0",
     "spotify-core": "*"
   },
   "devDependencies": {
