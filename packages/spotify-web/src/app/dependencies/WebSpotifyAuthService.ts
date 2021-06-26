@@ -1,32 +1,23 @@
-import { Auth, Observable } from "spotify-core";
-import parse from "url-parse";
-import { injectable } from "inversify";
+import { injectable } from 'inversify'
+import { Auth, Entities } from 'spotify-core'
+import parse from 'url-parse'
+require('dotenv').config()
 
-const spotifyAuthProvider = Auth.SpotifyAuthUrlProvider
-  .create()
+const spotifyAuthUrlProvider = Auth.SpotifyAuthUrlProvider.create()
   .addScopes([Auth.Scopes.userLibraryRead, Auth.Scopes.streaming])
-  .setClientId("06006394f03e41b9af557e5e00ab2220")
-  .setRedirectUri("http://localhost:3000/callback");
+  .setClientId(process.env.CLIENT_ID as string)
+  .setRedirectUri(process.env.REDIRECT_URL as string)
 
 @injectable()
 export default class WebSpotifyAuthService extends Auth.SpotifyAuthService {
-  constructor() {
-    super();
-  }
-  async promptSignInFlow(): Promise<void> {
-    window.location.href = spotifyAuthProvider.getAuthUrl();
-  }
-
-  async getRedirectResult(): Promise<Auth.Token | null> {
+  async promptSignInFlow(): Promise<Entities.RequestCode | null> {
     try {
-      const parsedUrl = parse(window.location.href.replace("#", "?"), true);
-      return Auth.Token.deserialize(parsedUrl.query as Record<string, string>);
+      const parsedUrl = parse(window.location.href.replace('#', '?'), true)
+      return Entities.RequestCode.deserialize(parsedUrl.query)
     } catch (e) {
-      return null;
+      console.log(e)
+      window.location.href = spotifyAuthUrlProvider.getAuthUrl()
+      return null
     }
-  }
-
-  async promptOauthSignInFlow(): Promise<void> {
-    window.location.href = spotifyAuthProvider.getAuthUrl();
   }
 }

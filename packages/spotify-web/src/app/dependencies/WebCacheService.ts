@@ -3,7 +3,7 @@ import localforage from 'localforage'
 import { CacheService } from 'spotify-core'
 
 @injectable()
-export default class WebCacheService extends CacheService {
+export default class WebCacheService implements CacheService {
   private localforageInstance = localforage.createInstance({})
 
   async removeItem(key: string): Promise<void> {
