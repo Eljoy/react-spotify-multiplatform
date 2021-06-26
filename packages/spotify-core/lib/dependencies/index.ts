@@ -23,5 +23,6 @@ export const AppDependencies = Object.freeze({
     ApiClientBuilder: 'ApiClientBuilder',
     CacheService: 'CacheService',
     LinkingService: 'LinkingService',
+    Config: 'Config',
   },
 })
