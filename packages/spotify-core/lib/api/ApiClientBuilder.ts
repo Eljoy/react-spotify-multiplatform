@@ -2,6 +2,8 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { IAxiosCacheAdapterOptions, setupCache } from 'axios-cache-adapter'
 import axiosRetry, { IAxiosRetryConfig } from 'axios-retry'
 import { provide } from 'inversify-binding-decorators'
+import { encode } from 'js-base64'
+import { Config } from '../common'
 import { AppDependencies } from '../dependencies'
 import { Auth } from '../features'
 import { spotifyAppDecorators } from '../inversify.config'
@@ -47,6 +49,9 @@ export class ApiClientBuilder {
   @spotifyAppDecorators.lazyInject(AppDependencies.Auth.Repository)
   private authRepository: Auth.SpotifyAuthRepository
 
+  @spotifyAppDecorators.lazyInject(AppDependencies.Common.Config)
+  private config: Config
+
   withRetryRequest(retryConfig: IAxiosRetryConfig = {}) {
     this.retryConfig = retryConfig
     return this
@@ -62,14 +67,8 @@ export class ApiClientBuilder {
   }
 
   withBasicAuthHeader() {
-    if (
-      !this.requestInterceptors.includes(
-        ApiClientBuilder.basicAuthRequestInterceptor
-      )
-    ) {
-      this.requestInterceptors.push(
-        ApiClientBuilder.basicAuthRequestInterceptor.bind(this)
-      )
+    if (!this.requestInterceptors.includes(this.basicAuthRequestInterceptor)) {
+      this.requestInterceptors.push(this.basicAuthRequestInterceptor.bind(this))
     }
     return this
   }
@@ -107,9 +106,10 @@ export class ApiClientBuilder {
     return config
   }
 
-  private static basicAuthRequestInterceptor(config: AxiosRequestConfig) {
-    config.headers.authorization =
-      'Basic MDYwMDYzOTRmMDNlNDFiOWFmNTU3ZTVlMDBhYjIyMjA6OTJhMjg0Y2M2ZjU2NGUzNGE4YjEyNTQ3M2M1YTk4OTc='
+  private basicAuthRequestInterceptor(config: AxiosRequestConfig) {
+    config.headers.authorization = `Basic ${encode(
+      this.config.CLIENT_ID + ':' + this.config.CLIENT_SECRET
+    )}`
     return config
   }
 }
