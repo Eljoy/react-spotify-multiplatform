@@ -34,8 +34,8 @@ spotifyAppContainer
 
 const spotifyAuthUrlProvider = Auth.SpotifyAuthUrlProvider.create()
   .addScopes([Auth.Scopes.userLibraryRead, Auth.Scopes.streaming])
-  .setClientId(process.env.CLIENT_ID as string)
-  .setRedirectUri(process.env.REDIRECT_URL as string)
+  .setClientId(REACT_APP_CLIENT_ID as string)
+  .setRedirectUri(REACT_APP_REDIRECT_URL as string)
 
 spotifyAppContainer
   .bind<Auth.SpotifyAuthUrlProvider>(AppDependencies.Auth.UrlProvider)
