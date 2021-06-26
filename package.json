@@ -1,0 +1,34 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "startCore": "cd ./packages/spotify-core && yarn watch",
+    "startAndroid": "cd ./packages/spotify-native && yarn android",
+    "startIos": "cd ./packages/spotify-native && yarn ios",
+    "startWeb": "cd ./packages/spotify-web && yarn start",
+    "nodeModulesClearInstall": "find ./ -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn"
+  },
+  "devDependencies": {
+    "husky": "^4.3.7",
+    "prettier": "^2.2.1",
+    "lint-staged": "^10.5.4",
+    "typescript": "^4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --allow-empty"
+    }
+  },
+  "lint-staged": {
+    "*/**/*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "prettier-plugin-organize-imports": "^1.1.1"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "name": "spotify-native",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "mkenv": "cd ../../scripts && sh env.sh ../packages/spotify-native/.env",
+    "postinstall": "npm run mkenv"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.2",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/netinfo": "^6.0.0",
+    "@react-navigation/native": "^5.7.3",
+    "@react-navigation/stack": "^5.9.0",
+    "dotenv": "^10.0.0",
+    "inversify": "^5.0.5",
+    "inversify-binding-decorators": "^4.0.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-native": "0.64.0",
+    "react-native-dotenv": "^2.5.5",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-reanimated": "^2.0.0",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-screens": "^2.18.1",
+    "react-native-webview": "^11.3.2",
+    "react-redux": "^7.2.2",
+    "reflect-metadata": "^0.1.13",
+    "spotify-core": "*"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-decorators": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/runtime": "^7.12.13",
+    "@react-native-community/cli-platform-android": "5.0.1-alpha.1",
+    "@react-native-community/cli-platform-ios": "5.0.1-alpha.1",
+    "@types/react-native": "^0.63.2",
+    "@types/url-parse": "^1.4.3",
+    "babel-jest": "^26.6.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "get-yarn-workspaces": "^1.0.2",
+    "jest": "^25.1.0",
+    "metro-config": "^0.56.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1"
+  },
+  "resolutions": {
+    "@types/react": "^17"
+  },
+  "workspaces": {
+    "nohoist": [
+      "react-native",
+      "react-native/*",
+      "react-native**",
+      "@react-native-community/**",
+      "@react-native-community",
+      "@react-navigation/**",
+      "redux",
+      "react",
+      "react-redux",
+      "babel-jest"
+    ]
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
