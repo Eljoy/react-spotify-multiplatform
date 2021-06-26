@@ -3,7 +3,7 @@ import {injectable} from 'inversify';
 import {CacheService} from 'spotify-core';
 
 @injectable()
-export default class NativeCacheService extends CacheService {
+export default class NativeCacheService implements CacheService {
   async get<T>(key: string): Promise<T | null> {
     const itemStr = await AsyncStorage.getItem(key);
     try {
