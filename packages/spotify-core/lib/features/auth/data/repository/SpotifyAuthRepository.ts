@@ -94,7 +94,8 @@ export default class SpotifyAuthRepository
   }
 
   private async getCachedToken(): Promise<Entities.Token | null> {
-    return Boolean(this.token) ? this.token : await this.cacheService.getToken()
+    this.token ||= await this.cacheService.getToken()
+    return this.token
   }
 
   private async removeToken() {
