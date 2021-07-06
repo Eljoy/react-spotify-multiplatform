@@ -30,7 +30,7 @@ module.exports = {
     '/node_modules/',
   ],
 
-  setupFiles: ['./__tests__/bindings.setup.ts'],
+  setupFiles: ['./__mocks__/bindings.setup.ts'],
 
   transformIgnorePatterns: [
     'node_modules/(?!('+ nodeModulesToIgnoreTransform.join('|')+'))'
