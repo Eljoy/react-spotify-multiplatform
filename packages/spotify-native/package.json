@@ -71,7 +71,7 @@
     "@types/react-native": "^0.63.2",
     "@types/url-parse": "^1.4.3",
     "babel-jest": "^26.6.0",
-    "babel-loader": "^8.2.2",
+    "babel-loader": "8.1.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "get-yarn-workspaces": "^1.0.2",
     "jest": "^25.1.0",
@@ -79,9 +79,9 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "react-native-storybook-loader": "^2.0.4",
     "react-test-renderer": "16.13.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "4.44.2",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
   },
   "resolutions": {
     "@types/react": "^17"
@@ -97,7 +97,15 @@
       "redux",
       "react",
       "react-redux",
-      "babel-jest"
+      "babel-jest",
+      "babel-loader",
+      "webpack",
+      "webpack-dev-server",
+      "babel-plugin-module-resolver",
+      "@babel/*",
+      "webpack",
+      "webpack-cli",
+      "webpack-dev-server"
     ]
   },
   "jest": {
