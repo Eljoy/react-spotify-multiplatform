@@ -5,7 +5,7 @@
     "outDir": "./dist",
     "strictFunctionTypes": false,
     "lib": [
-      "es2015"
+      "es2019"
     ],
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -13,6 +13,9 @@
     "strict": false,
     "declaration": true,
     "sourceMap": true,
+    "skipLibCheck": true,
   },
-  "exclude": ["../../node_modules/*", "./node_modules/*", "./dist", "*/**.test.ts", "__tests__"]
+  "exclude": ["../../node_modules/*", "./node_modules/*", "./dist", "*/**.test.ts",
+    "__mocks__"
+  ]
 }
