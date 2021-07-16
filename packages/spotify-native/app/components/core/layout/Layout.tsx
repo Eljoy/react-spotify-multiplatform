@@ -14,8 +14,8 @@ export type LayoutProps = {
   flex?: number;
   height?: number;
   width?: number;
-  layout?: LayoutDirection;
-  layoutAlign?: LayoutAlign;
+  direction?: LayoutDirection;
+  align?: LayoutAlign;
   marginScale?: number;
   marginHorizontalScale?: number;
   marginVerticalScale?: number;
@@ -30,8 +30,8 @@ export default function Layout({
   flex,
   height,
   width,
-  layout,
-  layoutAlign,
+  direction,
+  align,
   marginScale,
   marginHorizontalScale,
   marginVerticalScale,
@@ -44,8 +44,8 @@ export default function Layout({
 }: LayoutProps) {
   const layoutStyle = [
     flex && {flex},
-    layout && LayoutUtils.toLayoutStyle(layout),
-    layoutAlign && LayoutUtils.toLayoutAlignStyle(layoutAlign),
+    direction && LayoutUtils.toLayoutStyle(direction),
+    align && LayoutUtils.toLayoutAlignStyle(align),
     height && {height},
     width && {width},
     marginScale && getMargin(marginScale),

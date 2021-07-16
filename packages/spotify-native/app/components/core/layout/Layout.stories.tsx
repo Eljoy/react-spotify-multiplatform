@@ -38,7 +38,7 @@ function LayoutStory() {
       <Layout
         height={40}
         style={{backgroundColor: '#1155BC'}}
-        layoutAlign={'center center'}>
+        align={'center center'}>
         <Text>
           layout="{layoutDirection}" layout-align="{mainAxisAlignment}{' '}
           {crossAxisAlignment}"
@@ -46,10 +46,8 @@ function LayoutStory() {
       </Layout>
       <Layout
         flex={1}
-        layout={layoutDirection as Layout.Direction}
-        layoutAlign={
-          `${mainAxisAlignment} ${crossAxisAlignment}` as Layout.Align
-        }
+        direction={layoutDirection as Layout.Direction}
+        align={`${mainAxisAlignment} ${crossAxisAlignment}` as Layout.Align}
         style={{borderWidth: 1, borderColor: 'grey', marginTop: 5}}>
         <Layout
           style={{backgroundColor: '#2A9181', minWidth: 40, minHeight: 40}}

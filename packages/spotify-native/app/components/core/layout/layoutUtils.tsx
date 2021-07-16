@@ -79,7 +79,7 @@ function toLayoutAlignStyle(layoutAlignValue: LayoutAlign) {
   return {justifyContent, alignItems};
 }
 
-function toLayoutStyle(layoutValue: LayoutDirection) {
+function toLayoutDirectionStyle(layoutValue: LayoutDirection) {
   const flexDirection =
     layoutDirections.indexOf(layoutValue) !== -1 ? layoutValue : 'column';
   return {flexDirection};
@@ -114,4 +114,7 @@ function normalizeAxis(axis: Axis) {
   return {main, cross};
 }
 
-export const LayoutUtils = {toLayoutStyle, toLayoutAlignStyle};
+export const LayoutUtils = {
+  toLayoutStyle: toLayoutDirectionStyle,
+  toLayoutAlignStyle,
+};
