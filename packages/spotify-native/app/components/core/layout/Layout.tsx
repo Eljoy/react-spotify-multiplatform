@@ -8,14 +8,14 @@ import {
   getPaddingHorizontal,
   getPaddingVertical,
 } from '../../styles';
-import {Layout} from './layout';
+import {LayoutAlign, LayoutDirection, LayoutUtils} from './layoutUtils';
 
-export interface BlockProps {
+export type LayoutProps = {
   flex?: number;
   height?: number;
   width?: number;
-  layout?: Layout.LayoutDirection;
-  layoutAlign?: Layout.LayoutAlign;
+  layout?: LayoutDirection;
+  layoutAlign?: LayoutAlign;
   marginScale?: number;
   marginHorizontalScale?: number;
   marginVerticalScale?: number;
@@ -24,9 +24,9 @@ export interface BlockProps {
   paddingVerticalScale?: number;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
-}
+};
 
-function Block({
+export default function Layout({
   flex,
   height,
   width,
@@ -41,11 +41,11 @@ function Block({
   style,
   children,
   ...props
-}: BlockProps) {
-  const blockStyle = [
+}: LayoutProps) {
+  const layoutStyle = [
     flex && {flex},
-    layout && Layout.toLayoutStyle(layout),
-    layoutAlign && Layout.toLayoutAlignStyle(layoutAlign),
+    layout && LayoutUtils.toLayoutStyle(layout),
+    layoutAlign && LayoutUtils.toLayoutAlignStyle(layoutAlign),
     height && {height},
     width && {width},
     marginScale && getMargin(marginScale),
@@ -58,10 +58,8 @@ function Block({
   ] as StyleProp<ViewStyle>;
 
   return (
-    <View style={blockStyle} {...props}>
+    <View style={layoutStyle} {...props}>
       {children}
     </View>
   );
 }
-
-export default Block;

@@ -18,42 +18,41 @@ export const alignmentCrossAxis = [
   'baseline',
 ] as const;
 
-export declare namespace Layout {
-  export type AlignmentMainAxis = typeof alignmentMainAxis[number];
-  export type AlignmentCrossAxis = typeof alignmentCrossAxis[number];
-  export type LayoutAlign =
-    | 'start start'
-    | 'start center'
-    | 'start end'
-    | 'start stretch'
-    | 'start baseline'
-    | 'center start'
-    | 'center center'
-    | 'center end'
-    | 'center stretch'
-    | 'center baseline'
-    | 'end start'
-    | 'end center'
-    | 'end end'
-    | 'end stretch'
-    | 'end baseline'
-    | 'space-around start'
-    | 'space-around center'
-    | 'space-around end'
-    | 'space-around stretch'
-    | 'space-around baseline'
-    | 'space-between start'
-    | 'space-between center'
-    | 'space-between end'
-    | 'space-between stretch'
-    | 'space-between baseline'
-    | 'space-evenly start'
-    | 'space-evenly center'
-    | 'space-evenly end'
-    | 'space-evenly stretch'
-    | 'space-evenly baseline';
-  export type LayoutDirection = typeof layoutDirections[number];
-}
+export type AlignmentMainAxis = typeof alignmentMainAxis[number];
+export type AlignmentCrossAxis = typeof alignmentCrossAxis[number];
+export type LayoutAlign =
+  | 'start start'
+  | 'start center'
+  | 'start end'
+  | 'start stretch'
+  | 'start baseline'
+  | 'center start'
+  | 'center center'
+  | 'center end'
+  | 'center stretch'
+  | 'center baseline'
+  | 'end start'
+  | 'end center'
+  | 'end end'
+  | 'end stretch'
+  | 'end baseline'
+  | 'space-around start'
+  | 'space-around center'
+  | 'space-around end'
+  | 'space-around stretch'
+  | 'space-around baseline'
+  | 'space-between start'
+  | 'space-between center'
+  | 'space-between end'
+  | 'space-between stretch'
+  | 'space-between baseline'
+  | 'space-evenly start'
+  | 'space-evenly center'
+  | 'space-evenly end'
+  | 'space-evenly stretch'
+  | 'space-evenly baseline';
+
+export type LayoutDirection = typeof layoutDirections[number];
 
 interface Axis {
   main: string;
@@ -71,7 +70,7 @@ const normalized: Normalized = {
 
 const WHITESPACE = /\s+/g;
 
-function toLayoutAlignStyle(layoutAlignValue: Layout.LayoutAlign) {
+function toLayoutAlignStyle(layoutAlignValue: LayoutAlign) {
   const axis = normalizeAxis(extractAlignAxis(layoutAlignValue));
 
   const justifyContent = axis.main;
@@ -80,24 +79,24 @@ function toLayoutAlignStyle(layoutAlignValue: Layout.LayoutAlign) {
   return {justifyContent, alignItems};
 }
 
-function toLayoutStyle(layoutValue: Layout.LayoutDirection) {
+function toLayoutStyle(layoutValue: LayoutDirection) {
   const flexDirection =
     layoutDirections.indexOf(layoutValue) !== -1 ? layoutValue : 'column';
   return {flexDirection};
 }
 
-function extractAlignAxis(layoutAlignValue: Layout.LayoutAlign) {
+function extractAlignAxis(layoutAlignValue: LayoutAlign) {
   const axis = {
     main: 'start',
     cross: 'stretch',
   } as {
-    main: Layout.AlignmentMainAxis;
-    cross: Layout.AlignmentCrossAxis;
+    main: AlignmentMainAxis;
+    cross: AlignmentCrossAxis;
   };
 
   const values: [
-    Layout.AlignmentMainAxis,
-    Layout.AlignmentCrossAxis,
+    AlignmentMainAxis,
+    AlignmentCrossAxis,
   ] = layoutAlignValue.toLowerCase().trim().split(WHITESPACE) as any;
 
   if (values.length > 0) axis.main = values[0] || axis.main;
@@ -115,4 +114,4 @@ function normalizeAxis(axis: Axis) {
   return {main, cross};
 }
 
-export const Layout = {toLayoutStyle, toLayoutAlignStyle};
+export const LayoutUtils = {toLayoutStyle, toLayoutAlignStyle};
