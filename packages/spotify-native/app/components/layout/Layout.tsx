@@ -7,7 +7,7 @@ import {
   getPadding,
   getPaddingHorizontal,
   getPaddingVertical,
-} from '../../styles';
+} from '../../design-tokens';
 import {LayoutAlign, LayoutDirection, LayoutUtils} from './layoutUtils';
 
 export type LayoutProps = {
