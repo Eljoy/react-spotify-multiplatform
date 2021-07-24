@@ -34,8 +34,8 @@ export namespace TokenTypography {
 
   export enum FontFamily {
     Body = FontFamilyOptions.Roboto,
-    Caption = FontFamilyOptions.Roboto,
-    Title = FontFamilyOptions.Roboto,
+    Caption = FontFamilyOptions.Inter,
+    Title = FontFamilyOptions.Inter,
     Button = FontFamilyOptions.Roboto,
   }
 }
