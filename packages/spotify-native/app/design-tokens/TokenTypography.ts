@@ -1,9 +1,9 @@
 import {createPropertyGetter} from './createPropertyGetter';
 
 enum FontSizeOptions {
-  S = 11,
-  M = 14,
-  LM = 16,
+  XS = 11,
+  S = 14,
+  M = 16,
   L = 24,
 }
 
@@ -19,10 +19,10 @@ enum FontFamilyOptions {
 
 export namespace TokenTypography {
   export enum FontSize {
-    Body = FontSizeOptions.M,
-    Caption = FontSizeOptions.S,
+    Body = FontSizeOptions.S,
+    Caption = FontSizeOptions.XS,
     Title = FontSizeOptions.L,
-    Button = FontSizeOptions.LM,
+    Button = FontSizeOptions.M,
   }
 
   export enum FontWeight {
