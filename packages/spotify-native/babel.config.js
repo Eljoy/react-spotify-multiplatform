@@ -1,13 +1,13 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [['module:metro-react-native-babel-preset'], ["@babel/preset-typescript", { allowNamespace: true }]],
   plugins: [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["module:react-native-dotenv"],
-    ["@babel/plugin-transform-runtime", {
-      "helpers": true,
-      "regenerator": false
+    ['@babel/plugin-proposal-decorators', { 'legacy': true }],
+    ['module:react-native-dotenv'],
+    ['@babel/plugin-transform-runtime', {
+      'helpers': true,
+      'regenerator': false,
     }],
     [
       'module-resolver',
@@ -23,17 +23,17 @@ module.exports = {
             paths: [path.join(__dirname, './')],
           }),
           '^react-native/(.+)': ([, name]) =>
-              require.resolve(`react-native/${name}`, {
-                paths: [
-                  path.join(__dirname, './'),
-                ],
-              }),
+            require.resolve(`react-native/${name}`, {
+              paths: [
+                path.join(__dirname, './'),
+              ],
+            }),
           '^@react-navigation/(.+)': ([, name]) =>
-              require.resolve(`@react-navigation/${name}`, {
-                paths: [
-                  path.join(__dirname, './'),
-                ],
-              }),
+            require.resolve(`@react-navigation/${name}`, {
+              paths: [
+                path.join(__dirname, './'),
+              ],
+            }),
         },
         extensions: [
           '.ios.js',
@@ -51,5 +51,5 @@ module.exports = {
         ],
       },
     ],
-  ]
-};
+  ],
+}
