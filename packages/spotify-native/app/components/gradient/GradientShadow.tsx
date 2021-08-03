@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {ImageStyle} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Layout} from '../layout';
@@ -11,34 +11,31 @@ type AxisPosition = {
 export declare namespace GradientShadow {
   type Props = {
     colors: string[];
-    children?: ReactNode;
-    width: number;
-    height: number;
     position?: {
       left: AxisPosition;
       top: AxisPosition;
       right: AxisPosition;
       bottom: AxisPosition;
     };
-  };
+  } & Layout.Props;
 }
 
 const defaultShadowPosition: GradientShadow.Props['position'] = {
   left: {
-    offset: 0.05,
-    width: 0.2,
+    offset: 0.0,
+    width: 0.15,
   },
   top: {
-    offset: 0.05,
+    offset: 0.0,
     width: 0.15,
   },
   right: {
-    offset: 0.05,
+    offset: 0.0,
     width: 0.15,
   },
   bottom: {
-    offset: 0.05,
-    width: 0.2,
+    offset: 0.0,
+    width: 0.15,
   },
 };
 
@@ -48,6 +45,7 @@ export function GradientShadow({
   height,
   children,
   position: {left, top, right, bottom} = defaultShadowPosition,
+  ...props
 }: GradientShadow.Props) {
   const gradient: ImageStyle = {
     width: width,
@@ -56,7 +54,7 @@ export function GradientShadow({
     zIndex: 1,
   };
   return (
-    <Layout align="center center" style={{flex: 1}}>
+    <Layout align="center center" height={height} {...props}>
       <LinearGradient
         start={{x: left.offset, y: 0}}
         end={{x: left.offset + left.width, y: 0}}
