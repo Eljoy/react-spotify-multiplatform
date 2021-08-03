@@ -1,20 +1,51 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {Image, ImageProps, ImageStyle, StyleProp} from 'react-native';
 import {
   getImageRoundnessStyle,
   getImageSizeStyle,
   ImageTokens,
 } from '../../design-tokens';
+import {useAppTheme} from '../../theme';
+import {GradientShadow} from '../gradient/GradientShadow';
+import Layout from '../layout/Layout';
 
 export declare namespace Cover {
-  export type Props = {} & ImageProps;
+  export type Props = {
+    children?: ReactNode;
+  } & ImageProps;
 }
 
-export function Cover({style, ...props}: Cover.Props) {
-  const styles: StyleProp<ImageStyle>[] = [
+export function Cover({style, source, children}: Cover.Props) {
+  const {colors} = useAppTheme();
+  const shadowWidth = ImageTokens.Size.Cover + 50;
+  const shadowHeight = ImageTokens.Size.Cover + 50;
+  const imageStyles: StyleProp<ImageStyle>[] = [
     getImageSizeStyle(ImageTokens.Size.Cover),
     getImageRoundnessStyle(ImageTokens.Roundness.Cover),
     style,
+    {zIndex: 2},
   ];
-  return <Image {...props} style={styles} />;
+  return (
+    <GradientShadow
+      colors={[colors.background, '#FFFFFF00']}
+      width={shadowWidth}
+      height={shadowHeight}>
+      <Image
+        source={source}
+        style={{
+          width: shadowWidth,
+          height: shadowHeight,
+          position: 'absolute',
+        }}
+        blurRadius={100}
+      />
+      <Image source={source} style={imageStyles} />
+      <Layout
+        style={{position: 'absolute', zIndex: 2}}
+        height={ImageTokens.Size.Cover}
+        width={ImageTokens.Size.Cover}>
+        {children}
+      </Layout>
+    </GradientShadow>
+  );
 }
