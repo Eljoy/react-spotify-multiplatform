@@ -22,6 +22,7 @@ export namespace TokenTypography {
     Body = FontSizeOptions.S,
     Caption = FontSizeOptions.XS,
     Title = FontSizeOptions.L,
+    SubTitle = FontSizeOptions.M,
     Button = FontSizeOptions.M,
   }
 
@@ -29,6 +30,7 @@ export namespace TokenTypography {
     Body = FontWeightOptions.Normal,
     Caption = FontWeightOptions.Normal,
     Title = FontWeightOptions.Heavy,
+    SubTitle = FontWeightOptions.Heavy,
     Button = FontWeightOptions.Heavy,
   }
 
@@ -36,6 +38,7 @@ export namespace TokenTypography {
     Body = FontFamilyOptions.Roboto,
     Caption = FontFamilyOptions.Inter,
     Title = FontFamilyOptions.Inter,
+    SubTitle = FontFamilyOptions.Inter,
     Button = FontFamilyOptions.Roboto,
   }
 }
