@@ -1,13 +1,16 @@
 export type Theme = {
   colors: {
-    primary: string;
-    secondary: string;
     background: string;
     text: {
       title: string;
+      subtitle: string;
       body: string;
       caption: string;
       button: string;
+    };
+    buttons: {
+      primary: string;
+      secondary: string;
     };
   };
   fontFamily: string;
