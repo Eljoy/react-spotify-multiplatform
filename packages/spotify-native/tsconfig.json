@@ -8,7 +8,7 @@
     "jsx": "react-native",
     "noEmit": true,
     "isolatedModules": true,
-    "strict": true,
+    "strict": false,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
