@@ -4,4 +4,5 @@ export enum Colors {
   Grey = '#B3B3B3',
   Black50 = '#3B4753',
   Black100 = '#000000',
+  Transparent = 'transparent'
 }
