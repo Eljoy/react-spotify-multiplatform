@@ -4,8 +4,9 @@ import {Image} from 'react-native';
 import {useAppTheme} from '../../theme';
 import Layout from '../layout/Layout';
 import {GradientShadow} from './GradientShadow';
+import { AppBackground } from '../containers'
 
-storiesOf('GlowingShadow', module).add('GlowingShadow', () => (
+storiesOf('GradientShadow', module).add('GradientShadow', () => (
   <GradientShadowStory />
 ));
 
@@ -16,9 +17,9 @@ function GradientShadowStory() {
   const shadowWidth = 450;
   const shadowHeight = 450;
   return (
-    <Layout flex={1}>
+    <AppBackground align='center center'>
       <GradientShadow
-        colors={[colors.background, '#FFFFFF00']}
+        colors={[colors.background, 'transparent']}
         width={shadowWidth}
         height={shadowHeight}>
         <Image
@@ -35,6 +36,6 @@ function GradientShadowStory() {
           style={{width: 300, height: 300, borderRadius: 12}}
         />
       </GradientShadow>
-    </Layout>
+    </AppBackground>
   );
 }

@@ -22,20 +22,20 @@ export declare namespace GradientShadow {
 
 const defaultShadowPosition: GradientShadow.Props['position'] = {
   left: {
-    offset: 0.0,
-    width: 0.15,
+    offset: 0.01,
+    width: 0.2,
   },
   top: {
-    offset: 0.0,
-    width: 0.15,
+    offset: 0.01,
+    width: 0.2,
   },
   right: {
-    offset: 0.0,
-    width: 0.15,
+    offset: 0.01,
+    width: 0.2,
   },
   bottom: {
-    offset: 0.0,
-    width: 0.15,
+    offset: 0.01,
+    width: 0.2,
   },
 };
 
