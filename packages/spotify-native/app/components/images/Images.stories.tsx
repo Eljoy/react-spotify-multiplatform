@@ -1,31 +1,35 @@
-import {storiesOf} from '@storybook/react-native';
-import React from 'react';
-import {useAppTheme} from '../../theme';
-import Layout from '../layout/Layout';
-import BodyText from '../typography/BodyText';
-import {Cover} from './Cover';
-import {Thumbnail} from './Thumbnail';
+import { storiesOf } from '@storybook/react-native'
+import React from 'react'
+import Layout from '../layout/Layout'
+import BodyText from '../typography/BodyText'
+import { Cover } from './Cover'
+import { Thumbnail } from './Thumbnail'
+import { generatePlaylistImage, generatePlaylistPreview } from 'spotify-core'
+import range from 'lodash.range'
+import { AppBackground } from '../containers'
 
-storiesOf('Images', module).add('Images', () => <ImagesStory />);
+storiesOf('Images', module)
+  .add('Thumbnail', () => <ThumbnailStory />)
+  .add('Cover', () => <CoverStory />)
 
-const uri = 'https://m.media-amazon.com/images/I/61d8t0gNa+L._SS500_.jpg';
-const source = {uri};
-
-function ImagesStory() {
-  const {colors} = useAppTheme();
+function ThumbnailStory() {
   return (
-    <Layout
-      flex={1}
-      style={{backgroundColor: colors.background}}
-      align="start start">
-      <Layout style={{margin: 10}}>
-        <BodyText>Cover</BodyText>
-        <Cover source={source} />
-      </Layout>
-      <Layout style={{margin: 10}}>
+    <AppBackground align='start start'>
+      <Layout style={{ margin: 10 }}>
         <BodyText>Thumbnail</BodyText>
-        <Thumbnail source={source} />
+        <Thumbnail source={{ uri: generatePlaylistImage().url }} />
       </Layout>
-    </Layout>
-  );
+    </AppBackground>
+  )
 }
+
+function CoverStory() {
+  const covers = range(0, 2).map((_, index) => {
+    const { url: uri } = generatePlaylistImage()
+    return (<Cover key={index} source={{ uri }} />)
+  })
+  return (
+    <AppBackground>{covers}</AppBackground>
+  )
+}
+
