@@ -3,22 +3,22 @@ import { Image } from '../image'
 
 export default class PlaylistPreview extends SerializableEntity {
   @JsonProperty({ required: true })
-  readonly id: string
+  id: string
 
   @JsonProperty()
-  readonly name: string
+  name: string
 
   @JsonProperty()
-  readonly description: string
+  description: string
 
   @JsonProperty('images[0]')
-  readonly backgroundImage: Image
+  backgroundImage: Image
 
   @JsonProperty()
-  readonly href: string
+  href: string
 
   @JsonProperty({ required: true })
-  readonly tracks: {
+  tracks: {
     href: string
     total: number
   }
