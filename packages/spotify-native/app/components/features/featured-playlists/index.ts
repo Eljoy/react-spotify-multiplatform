@@ -1,2 +1,2 @@
-export {default as FeaturedPlaylists} from './FeaturedPlaylists';
-export {default as PlaylistPreview} from './PlaylistPreview';
+export { default as FeaturedPlaylists } from './FeaturedPlaylists'
+export { PlaylistPreview } from './PlaylistPreview'

@@ -1,24 +1,21 @@
-import React from 'react';
-import {Image, TouchableNativeFeedback, View} from 'react-native';
-import {Entities} from 'spotify-core';
+import React from 'react'
+import { Image, Text, TouchableNativeFeedback, View } from 'react-native'
+import { Entities } from 'spotify-core'
+import { Cover } from '../../images'
+import TitleText from '../../typography/TitleText'
+import Layout from '../../layout/Layout'
+import { SubTitleText } from '../../typography'
+import { BlurredBackground } from '../../containers/BlurredBackground'
 
-type Props = {
-  playlistPreview: Entities.PlaylistPreview;
-  onPress?: (playlistPreview: Entities.PlaylistPreview) => void;
-};
+export declare namespace PlaylistPreview {
+  export type Props = {
+    playlistPreview: Entities.PlaylistPreview;
+    onPress?: (playlistPreview: Entities.PlaylistPreview) => void;
+  }
+}
 
-export default function PlaylistPreview({playlistPreview, onPress}: Props) {
+export function PlaylistPreview({ playlistPreview, onPress }: PlaylistPreview.Props) {
   return (
-    <View>
-      <TouchableNativeFeedback
-        onPress={() => {
-          onPress && onPress(playlistPreview);
-        }}>
-        <Image
-          source={{uri: playlistPreview.backgroundImage.url}}
-          style={{width: 80, height: 80}}
-        />
-      </TouchableNativeFeedback>
-    </View>
-  );
+    <Cover source={{ uri: playlistPreview.backgroundImage.url }}/>
+  )
 }
