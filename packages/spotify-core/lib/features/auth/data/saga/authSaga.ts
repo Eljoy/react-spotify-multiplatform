@@ -7,12 +7,14 @@ import { AuthRepository } from '../../domain'
 import { setIsSignedIn, signIn, signOut } from '../store'
 
 const authRepository = byLazy(() =>
-  spotifyAppContainer.get<AuthRepository>(AppDependencies.Auth.Repository)
+  spotifyAppContainer.get<AuthRepository>(AppDependencies.Auth.Repository),
 )
 
 export default function* authSaga() {
   const token = yield call([authRepository(), 'getAuthToken'])
-  yield put(setIsSignedIn(Boolean(token)))
+  if (token) {
+    yield put(signIn.success(token))
+  }
   yield all([
     takeLatest(signIn.request, promptOauthSignInFlow),
     takeLatest(signOut.request, signOutSaga),
