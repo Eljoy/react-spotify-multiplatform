@@ -14,15 +14,16 @@ export default function SpotifyRootNavigation() {
       <Stack.Navigator>
         {isSignedIn ? (
           <>
-            <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
+            <Stack.Screen name={ScreenNames.Home} component={HomeScreen} options={{headerShown: false}} />
             <Stack.Screen
+              options={{headerShown: false}}
               name={ScreenNames.Playlist}
               component={PlaylistScreen}
             />
           </>
         ) : (
           <>
-            <Stack.Screen name={ScreenNames.Auth} component={AuthScreen} />
+            <Stack.Screen name={ScreenNames.Auth} component={AuthScreen} options={{headerShown: false}}/>
           </>
         )}
       </Stack.Navigator>
