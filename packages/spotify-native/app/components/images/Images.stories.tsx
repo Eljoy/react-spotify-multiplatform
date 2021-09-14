@@ -7,18 +7,27 @@ import { Thumbnail } from './Thumbnail'
 import { generatePlaylistImage, generatePlaylistPreview } from 'spotify-core'
 import range from 'lodash.range'
 import { AppBackground } from '../containers'
+import { Avatar } from './Avatar'
 
 storiesOf('Images', module)
+  .add('Avatar', () => <AvatarStory />)
   .add('Thumbnail', () => <ThumbnailStory />)
   .add('Cover', () => <CoverStory />)
 
 function ThumbnailStory() {
   return (
-    <AppBackground align='start start'>
-      <Layout style={{ margin: 10 }}>
-        <BodyText>Thumbnail</BodyText>
-        <Thumbnail source={{ uri: generatePlaylistImage().url }} />
-      </Layout>
+    <AppBackground align='start start' style={{ padding: 10 }}>
+      <BodyText>Thumbnail</BodyText>
+      <Thumbnail source={{ uri: generatePlaylistImage().url }} />
+    </AppBackground>
+  )
+}
+
+function AvatarStory() {
+  return (
+    <AppBackground align='start start' style={{ padding: 10 }}>
+      <BodyText>Avatar</BodyText>
+      <Avatar source={{ uri: generatePlaylistImage().url }} />
     </AppBackground>
   )
 }
