@@ -11,6 +11,6 @@ export default class User extends SerializableEntity {
   @JsonProperty()
   email: string
 
-  @JsonProperty({ required: true })
-  images: Image[]
+  @JsonProperty({ path: 'images[0]',required: true })
+  image: Image
 }

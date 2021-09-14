@@ -24,7 +24,7 @@ describe('User Entity', () => {
       id: userData.id,
       name: userData.display_name,
       email: userData.email,
-      images: [Image.deserialize(imageData)],
+      image: Image.deserialize(imageData),
     })
   })
 })
