@@ -16,15 +16,17 @@ import ButtonText from '../typography/ButtonText';
 
 type Props = {
   children?: ReactNode;
+  style?: ViewStyle
 } & TouchableNativeFeedbackProps;
 
-export default function SecondaryButton({children, ...props}: Props) {
+export default function SecondaryButton({children, style, ...props}: Props) {
   const {colors} = useAppTheme();
   const styles: ViewStyle[] = [
     {backgroundColor: colors.buttons.secondary},
     getButtonRoundnessStyle(ButtonTokens.Roundness.SecondaryButton),
     getButtonPaddingStyle(ButtonTokens.Padding.SecondaryButton),
     getButtonHeightStyle(ButtonTokens.Height.SecondaryButton),
+    style
   ];
   return (
     <TouchableNativeFeedback {...props}>
@@ -34,3 +36,5 @@ export default function SecondaryButton({children, ...props}: Props) {
     </TouchableNativeFeedback>
   );
 }
+
+SecondaryButton.Text = ButtonText
