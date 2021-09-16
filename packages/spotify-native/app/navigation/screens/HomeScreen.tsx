@@ -1,22 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Button, Text, View} from 'react-native';
-import {Auth} from 'spotify-core';
 import {FeaturedPlaylists} from '../../components';
 import {ScreenNames} from './screenNames';
+import { AppBackground } from '../../components/containers'
 
 export default function HomeScreen() {
-  const {signOut} = Auth.useAuth();
   const {navigate} = useNavigation();
   return (
-    <View>
-      <Text>Home Screen</Text>
-      <Button title={'Sign out'} onPress={signOut} />
+    <AppBackground flex={1}>
       <FeaturedPlaylists
         onPlaylistSelected={playlistId => {
           navigate(ScreenNames.Playlist, {playlistId});
         }}
       />
-    </View>
+    </AppBackground>
   );
 }
