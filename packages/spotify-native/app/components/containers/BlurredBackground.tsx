@@ -10,16 +10,16 @@ export declare namespace BlurredBackground {
 export function BlurredBackground({ children, style, ...props }: BlurredBackground.Props) {
   const containerStyle: Layout.Props['style'][] = [
     {overflow: 'hidden'},
+    styles.absolute,
     style,
   ]
   return (
     <Layout style={containerStyle}>
       <Layout flex={1} style={styles.absolute}>
         <BlurView
-          blurType='dark'
-          blurAmount={50}
+          blurType='light'
+          blurAmount={2}
           style={styles.absolute}
-          reducedTransparencyFallbackColor="white"
           {...props}
         >
         </BlurView>
@@ -27,6 +27,11 @@ export function BlurredBackground({ children, style, ...props }: BlurredBackgrou
       {children}
     </Layout>
   )
+}
+
+BlurredBackground.zIndex = {
+  Blurred: 0,
+  NotBlurred: 10
 }
 
 const styles = StyleSheet.create({
