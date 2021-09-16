@@ -14,7 +14,7 @@ const uri = 'https://m.media-amazon.com/images/I/61d8t0gNa+L._SS500_.jpg'
 function BlurredBackgroundStory() {
   return (
     <AppBackground>
-      <Layout flex={1} align='center center'>
+      <Layout width={300} height={300} align='center center'>
         <BlurredBackground>
           <Image source={{ uri }} style={{ width: 300, height: 300 }} />
         </BlurredBackground>
