@@ -14,8 +14,8 @@ export default class NativeCacheService implements CacheService {
   }
 
   put(key: string, item: string): Promise<void> {
-    if(item === null){
-      return this.removeItem(key)
+    if (!item) {
+      return this.removeItem(key);
     } else {
       return AsyncStorage.setItem(key, item);
     }
