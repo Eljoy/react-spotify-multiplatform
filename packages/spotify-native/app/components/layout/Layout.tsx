@@ -11,9 +11,6 @@ import {
 import {LayoutAlign, LayoutDirection, LayoutUtils} from './layoutUtils';
 
 export type LayoutProps = {
-  flex?: number;
-  height?: number;
-  width?: number;
   direction?: LayoutDirection;
   align?: LayoutAlign;
   marginScale?: number;
@@ -24,11 +21,13 @@ export type LayoutProps = {
   paddingVerticalScale?: number;
   style?: StyleProp<ViewStyle>;
   children?: ReactNode;
-};
+} & Pick<ViewStyle, 'flex' | 'height' | 'maxHeight' | 'width' | 'maxWidth'>;
 
 export default function Layout({
   flex,
   height,
+  maxHeight,
+  maxWidth,
   width,
   direction,
   align,
@@ -47,6 +46,8 @@ export default function Layout({
     direction && LayoutUtils.toLayoutStyle(direction),
     align && LayoutUtils.toLayoutAlignStyle(align),
     height && {height},
+    maxHeight && {maxHeight},
+    maxWidth && {maxWidth},
     width && {width},
     marginScale && getMargin(marginScale),
     marginHorizontalScale && getMarginHorizontal(marginHorizontalScale),
