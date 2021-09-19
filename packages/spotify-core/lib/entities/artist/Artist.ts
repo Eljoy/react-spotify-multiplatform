@@ -3,11 +3,11 @@ import { JsonProperty, Serializable, SerializableEntity } from 'ts-jackson'
 @Serializable()
 export default class Artist extends SerializableEntity {
   @JsonProperty()
-  readonly id: string
+  id: string
 
   @JsonProperty()
-  readonly name: string
+  name: string
 
   @JsonProperty()
-  readonly href: string
+  href: string
 }
