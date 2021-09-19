@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/faker": "^5.5.7",
+    "@types/lodash.range": "^3.2.6",
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "axios-mock-adapter": "^1.19.0",
@@ -22,6 +23,7 @@
     "inversify-inject-decorators": "^3.1.0",
     "jest": "^26.6.3",
     "js-base64": "^3.6.1",
+    "lodash.range": "^3.2.0",
     "react": "16.13.1",
     "react-redux": "^7.2.2",
     "redux-logger": "3.0.6",
