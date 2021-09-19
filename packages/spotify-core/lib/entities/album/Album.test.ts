@@ -62,12 +62,12 @@ describe('Album Entity', () => {
       releaseDate: testAlbumJson.release_date,
       artists: testAlbumJson.artists.map((a) => Artist.deserialize(a)),
       backgroundImage: Image.deserialize(testAlbumJson.images[0]),
-      icon: Image.deserialize(testAlbumJson.images[2]),
+      thumbnail: Image.deserialize(testAlbumJson.images[2]),
       href: testAlbumJson.href,
     })
     expect(album instanceof Album).toBeTruthy()
     expect(album.backgroundImage instanceof Image).toBeTruthy()
-    expect(album.icon instanceof Image).toBeTruthy()
+    expect(album.thumbnail instanceof Image).toBeTruthy()
   })
 
   test('serialize', () => {
@@ -81,7 +81,7 @@ describe('Album Entity', () => {
       images: [
         serialize(album.backgroundImage),
         undefined,
-        serialize(album.icon),
+        serialize(album.thumbnail),
       ],
       href: album.href,
     } as Partial<typeof testAlbumJson>)

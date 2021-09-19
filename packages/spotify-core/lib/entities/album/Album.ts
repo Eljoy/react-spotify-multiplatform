@@ -5,26 +5,26 @@ import { Image } from '../image'
 @Serializable()
 export default class Album extends SerializableEntity {
   @JsonProperty({ required: true })
-  readonly id: string
+  id: string
 
   @JsonProperty({ required: true })
-  readonly name: string
+  name: string
 
   @JsonProperty('images[0]')
-  readonly backgroundImage: Image
+  backgroundImage: Image
 
   @JsonProperty('images[2]')
-  readonly icon: Image
+  thumbnail: Image
 
   @JsonProperty()
-  readonly artists: Artist[]
+  artists: Artist[]
 
   @JsonProperty('release_date')
-  readonly releaseDate: string
+  releaseDate: string
 
   @JsonProperty('total_tracks')
-  readonly totalTracks: number
+  totalTracks: number
 
   @JsonProperty()
-  readonly href: string
+  href: string
 }
