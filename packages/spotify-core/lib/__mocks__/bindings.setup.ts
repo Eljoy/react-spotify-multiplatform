@@ -3,16 +3,16 @@ import {
   CacheService,
   LinkingService,
   spotifyAppContainer,
-} from '../lib'
+} from '../'
 import {
   AuthRepository,
   AuthService,
   Scopes,
   SpotifyAuthService,
   SpotifyAuthUrlProvider,
-} from '../lib/features/auth'
-import AuthCacheService from '../lib/features/auth/data/cache/AuthCacheService'
-import SpotifyAuthRepository from '../lib/features/auth/data/repository/SpotifyAuthRepository'
+} from '../features/auth'
+import AuthCacheService from '../features/auth/data/cache/AuthCacheService'
+import SpotifyAuthRepository from '../features/auth/data/repository/SpotifyAuthRepository'
 
 spotifyAppContainer
   .bind<CacheService>(AppDependencies.Common.CacheService)
