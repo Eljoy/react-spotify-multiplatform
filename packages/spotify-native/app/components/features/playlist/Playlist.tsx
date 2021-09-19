@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList} from 'react-native';
 import {PlaylistFeature} from 'spotify-core';
-import Track from './Track';
+import Layout from '../../layout/Layout';
+import {TrackItem} from './TrackItem';
 
 type Props = {
   playlistId: string;
@@ -12,18 +13,17 @@ export default function Playlist({playlistId}: Props) {
   useEffect(() => {
     fetchPlaylist(playlistId);
   }, []);
-  console.log('playlist ', playlist);
+  const tracks = playlist ? playlist.tracks : [];
   return (
-    <View>
-      <Text>Playlist: </Text>
+    <Layout flex={1}>
       <FlatList
-        data={playlist?.tracks.items}
+        data={tracks}
         renderItem={({item}) => {
-          console.log('item ', item.track);
-          return <Track track={item.track} />;
+          return <TrackItem track={item} />;
         }}
         alwaysBounceVertical
+        keyExtractor={item => item.id}
       />
-    </View>
+    </Layout>
   );
 }
